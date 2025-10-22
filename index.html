@@ -1,52 +1,92 @@
-<!DOCTYPE html><html lang="id">
+<!doctype html>
+<html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Beranda - Galeri Hewan Indonesia</title>
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-<style>
-body {font-family: 'Roboto', sans-serif; margin:0; padding:0; background:#f0f4f2; color:#333;}
-header {background:#a3d2ca; color:#fff; padding:30px 20px; text-align:center;}
-header h1 {font-size:2.2em; margin-bottom:10px;}
-header p {font-size:1.1em;}
-nav {display:flex; justify-content:center; gap:25px; background:#077187; padding:15px;}
-nav a {color:#fff; text-decoration:none; font-weight:700;}
-nav a:hover {text-decoration:underline;}
-section {padding:40px 20px;}
-.fakta {background:#e0f2f1; margin-bottom:20px; border-radius:10px; padding:20px;}
-.fakta h2 {color:#077187; margin-bottom:15px; text-align:center;}
-ul {list-style: disc inside;}
-.animasi {text-align:center; margin-top:30px;}
-.animasi img {max-width:80%; height:auto; border-radius:10px;}
-footer {background:#077187; color:#fff; text-align:center; padding:15px;}
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Alami & Fauna — Beranda</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-<header>
-  <h1>Galeri Hewan Indonesia</h1>
-  <p>Fakta menarik, hewan dilindungi, galeri foto, video, dan kuis</p>
-</header>
-<nav>
-  <a href="index.html">Beranda</a>
-  <a href="hewan-dilindungi.html">Hewan Dilindungi</a>
-  <a href="galeri.html">Galeri</a>
-  <a href="kuis.html">Kuis</a>
-</nav>
-<section class="fakta">
-  <h2>Fakta Menarik Tentang Hewan Indonesia</h2>
-  <ul>
-    <li>Harimau Sumatra adalah predator terbesar di pulau Sumatra.</li>
-    <li>Orangutan hanya hidup di pulau Kalimantan dan Sumatra.</li>
-    <li>Komodo adalah kadal terbesar di dunia dan dilindungi di Taman Nasional Komodo.</li>
-    <li>Burung pemangsa memiliki penglihatan sangat tajam untuk menangkap mangsa.</li>
-  </ul>
-</section>
-<section class="animasi">
-  <h2>Animasi Hewan</h2>
-  <img src="https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif" alt="Animasi Hewan">
-</section>
-<footer>
-  <p>© 2025 Galeri Hewan Indonesia</p>
-</footer>
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="logo">🐾 Alami & Fauna</div>
+      <nav class="nav">
+        <a href="index.html" class="active">Beranda</a>
+        <a href="fakta.html">Fakta</a>
+        <a href="dilindungi.html">Dilindungi</a>
+        <a href="galeri.html">Galeri</a>
+        <a href="kuis.html">Kuis</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div class="hero-text">
+        <h1>Selamat datang di Alami & Fauna</h1>
+        <p>Tempat belajar tentang hewan - fakta menarik, hewan dilindungi, galeri foto & video, serta kuis interaktif.</p>
+        <div class="hero-cta">
+          <a class="btn" href="fakta.html">Mulai Eksplorasi</a>
+          <a class="btn ghost" href="kuis.html">Coba Kuis</a>
+        </div>
+      </div>
+      <div class="hero-media">
+        <img src="https://images.unsplash.com/photo-1518791841217-8f162f1e1131?q=80&w=1200&auto=format&fit=crop" alt="Hewan Alam" />
+      </div>
+    </section>
+
+    <section class="cards-grid">
+      <article class="card">
+        <h3>Fakta Menarik</h3>
+        <p>Pelajari fakta unik hewan seperti kebiasaan makan, habitat, dan adaptasi menakjubkan.</p>
+        <a href="fakta.html" class="link">Lihat Fakta →</a>
+      </article>
+
+      <article class="card">
+        <h3>Hewan Dilindungi</h3>
+        <p>Kenali spesies yang dilindungi di Indonesia dan kenapa mereka butuh perlindungan.</p>
+        <a href="dilindungi.html" class="link">Lihat Daftar →</a>
+      </article>
+
+      <article class="card">
+        <h3>Galeri Foto & Video</h3>
+        <p>Galeri berisi foto kualitas tinggi dan video singkat tentang perilaku hewan.</p>
+        <a href="galeri.html" class="link">Lihat Galeri →</a>
+      </article>
+
+      <article class="card">
+        <h3>Kuis Interaktif</h3>
+        <p>Uji pengetahuanmu lewat kuis singkat — cocok untuk tugas sekolah!</p>
+        <a href="kuis.html" class="link">Mulai Kuis →</a>
+      </article>
+    </section>
+
+    <section class="spotlight">
+      <div class="spotlight-left">
+        <h2>Fitur Unggulan</h2>
+        <ul>
+          <li>Informasi terpercaya dan disajikan ringkas.</li>
+          <li>Galeri multimedia dengan foto & video embed.</li>
+          <li>Kuis interaktif dengan skor dan pembahasan.</li>
+        </ul>
+      </div>
+      <div class="spotlight-right">
+        <div class="video-card">
+          <iframe src="https://www.youtube.com/embed/3V9D9u3Wc0o" title="Video Orangutan" frameborder="0" allowfullscreen></iframe>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© <span id="year"></span> Alami & Fauna • Konten untuk edukasi</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
+
