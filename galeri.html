@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Galeri — Alami & Fauna</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="logo">🐾 Alami & Fauna</div>
+      <nav class="nav">
+        <a href="index.html">Beranda</a>
+        <a href="fakta.html">Fakta</a>
+        <a href="dilindungi.html">Dilindungi</a>
+        <a href="galeri.html" class="active">Galeri</a>
+        <a href="kuis.html">Kuis</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="page-intro">
+      <h1>Galeri Foto & Video</h1>
+      <p>Klik gambar untuk melihat versi lebih besar. Video di-embed dari YouTube.</p>
+    </section>
+
+    <section class="gallery-grid">
+      <figure class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1444212477495-6c31f3d49f1a?q=80&w=1200&auto=format&fit=crop" alt="Foto 1" />
+        <figcaption>Harimau Sumatra — habitat</figcaption>
+      </figure>
+
+      <figure class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1546182990-dffeafbe841d?q=80&w=1200&auto=format&fit=crop" alt="Foto 2" />
+        <figcaption>Orangutan di hutan</figcaption>
+      </figure>
+
+      <figure class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1526336024174-e58f5cdd8e13?q=80&w=1200&auto=format&fit=crop" alt="Foto 3" />
+        <figcaption>Komodo — Pulau Komodo</figcaption>
+      </figure>
+
+      <figure class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1518791841217-8f162f1e1131?q=80&w=1200&auto=format&fit=crop" alt="Foto 4" />
+        <figcaption>Burung pemangsa</figcaption>
+      </figure>
+    </section>
+
+    <section class="video-playlist">
+      <h2>Video Pilihan</h2>
+      <div class="videos">
+        <div class="video-frame">
+          <iframe src="https://www.youtube.com/embed/3V9D9u3Wc0o" title="Orangutan" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <div class="video-frame">
+          <iframe src="https://www.youtube.com/embed/7dX5q3DkG3s" title="Harimau" frameborder="0" allowfullscreen></iframe>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© <span id="year4"></span> Alami & Fauna</p>
+    </div>
+  </footer>
+  <script>document.getElementById('year4').textContent = new Date().getFullYear();</script>
+</body>
+</html>
