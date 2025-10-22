@@ -1,39 +1,34 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Galeri — Alami & Fauna</title>
   <style>
-    body { font-family: 'Segoe UI', sans-serif; background-color: #f0f5f1; color: #333; margin: 0; }
+    body { font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 0; padding: 0; }
+    header { background-color: #7ca982; color: white; padding: 15px 20px; text-align: center; }
+    header nav a { color: white; margin: 0 10px; text-decoration: none; font-weight: bold; }
+    header nav a.active { text-decoration: underline; }
     .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
-    header.site-header { background-color: #7ca982; padding: 15px 20px; color: white; display: flex; justify-content: space-between; align-items: center; }
-    header .nav a { color: white; margin-left: 15px; text-decoration: none; font-weight: 600; transition: color 0.3s; }
-    header .nav a:hover, header .nav a.active { color: #e6f0ea; }
-    .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-bottom: 40px; }
-    .gallery-item { position: relative; cursor: pointer; overflow: hidden; border-radius: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.2); opacity: 0; transform: translateY(20px); transition: all 0.6s ease; }
-    .gallery-item.visible { opacity: 1; transform: translateY(0); }
-    .gallery-item img { width: 100%; height: 150px; object-fit: cover; transition: transform 0.3s; }
-    .gallery-item:hover img { transform: scale(1.08); }
-    .gallery-item figcaption { text-align: center; margin-top: 5px; font-size: 0.9rem; color: #2f3e36; }
-    .lightbox { display: none; position: fixed; z-index: 1000; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); justify-content: center; align-items: center; cursor: pointer; }
-    .lightbox img { max-width: 90%; max-height: 90%; border-radius: 12px; box-shadow: 0 0 15px rgba(255,255,255,0.4); }
-    .video-playlist h2 { margin-bottom: 15px; color: #4c6b58; }
-    .video-playlist .videos { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 50px; }
-    .video-frame { overflow: hidden; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.2); transition: transform 0.3s; }
-    .video-frame:hover { transform: scale(1.03); }
-    .video-frame iframe { width: 100%; height: 200px; border: none; }
-    @media (min-width: 768px) {
-      .gallery-item img { height: 200px; }
-      .video-frame iframe { height: 250px; }
-    }
-    footer.site-footer { background-color: #7ca982; color: white; text-align: center; padding: 15px 20px; }
+    .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap: 15px; margin-bottom: 40px; }
+    .gallery-item { border-radius: 10px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.2); cursor: pointer; transition: transform 0.3s; }
+    .gallery-item:hover { transform: scale(1.05); }
+    .gallery-item img { width: 100%; height: 200px; object-fit: cover; display: block; }
+    .gallery-item figcaption { text-align: center; padding: 5px; background: #333; color: white; }
+    .lightbox { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.8); justify-content:center; align-items:center; z-index:1000; }
+    .lightbox img { max-width:90%; max-height:90%; border-radius:12px; }
+    .video-playlist h2 { color:#4c6b58; margin-bottom:15px; }
+    .videos { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px,1fr)); gap:20px; }
+    .video-frame { overflow:hidden; border-radius:12px; box-shadow:0 2px 8px rgba(0,0,0,0.2); }
+    .video-frame iframe { width:100%; height:200px; border:none; }
+    @media (min-width:768px) { .gallery-item img { height:250px; } .video-frame iframe { height:250px; } }
+    footer { background-color:#7ca982; color:white; text-align:center; padding:15px; }
   </style>
 </head>
 <body>
-  <header class="site-header">
-    <div class="logo">🐾 Alami & Fauna</div>
-    <nav class="nav">
+  <header>
+    <h1>Galeri Alami & Fauna</h1>
+    <nav>
       <a href="index.html">Beranda</a>
       <a href="fakta.html">Fakta</a>
       <a href="dilindungi.html">Dilindungi</a>
@@ -43,37 +38,27 @@
   </header>
 
   <main class="container">
-    <section class="page-intro">
-      <h1>Galeri Foto & Video</h1>
-      <p>Klik foto untuk memperbesar. Video YouTube responsif. Foto-foto terbaru sudah diperbarui.</p>
-    </section>
-
-    <!-- Galeri Foto -->
     <section class="gallery-grid">
       <figure class="gallery-item">
-        <img src="https://i.imgur.com/harimau_sumatra.jpg" alt="Harimau Sumatra">
-        <figcaption>Harimau Sumatra</figcaption>
-      </figure>
-      <figure class="gallery-item">
-        <img src="https://i.imgur.com/orangutan.jpg" alt="Orangutan">
+        <img src="https://cdn.pixabay.com/photo/2017/08/30/01/11/orangutan-2695562_1280.jpg" alt="Orangutan">
         <figcaption>Orangutan</figcaption>
       </figure>
       <figure class="gallery-item">
-        <img src="https://i.imgur.com/komodo.jpg" alt="Komodo">
+        <img src="https://cdn.pixabay.com/photo/2016/11/21/15/14/komodo-1846192_1280.jpg" alt="Komodo">
         <figcaption>Komodo</figcaption>
       </figure>
       <figure class="gallery-item">
-        <img src="https://i.imgur.com/burung_pemangsa.jpg" alt="Burung Pemangsa">
+        <img src="https://cdn.pixabay.com/photo/2017/08/30/01/11/orangutan-2695562_1280.jpg" alt="Harimau Sumatra">
+        <figcaption>Harimau Sumatra</figcaption>
+      </figure>
+      <figure class="gallery-item">
+        <img src="https://cdn.pixabay.com/photo/2016/11/21/15/14/komodo-1846192_1280.jpg" alt="Burung Pemangsa">
         <figcaption>Burung Pemangsa</figcaption>
       </figure>
     </section>
 
-    <!-- Lightbox -->
-    <div class="lightbox" id="lightbox">
-      <img src="" alt="Zoom Foto" />
-    </div>
+    <div class="lightbox" id="lightbox"><img src="" alt="Zoom Foto"></div>
 
-    <!-- Video -->
     <section class="video-playlist">
       <h2>Video Pilihan</h2>
       <div class="videos">
@@ -87,40 +72,33 @@
     </section>
   </main>
 
-  <footer class="site-footer">
-    <div class="container">
-      <p>© <span id="year-galeri"></span> Alami & Fauna</p>
-    </div>
+  <footer>
+    <p>© <span id="year"></span> Alami & Fauna</p>
   </footer>
 
   <script>
-    // Tahun otomatis
-    document.getElementById('year-galeri').textContent = new Date().getFullYear();
+    document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Animasi fade-in saat scroll
+    // Animasi fade-in
     const items = document.querySelectorAll('.gallery-item');
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
+    const observer = new IntersectionObserver(entries=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){ entry.target.style.opacity='1'; entry.target.style.transform='translateY(0)'; }
       });
-    }, { threshold: 0.2 });
-    items.forEach(item => observer.observe(item));
+    },{threshold:0.2});
+    items.forEach(item=>observer.observe(item));
 
-    // Lightbox klik foto
+    // Lightbox
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = lightbox.querySelector('img');
-    document.querySelectorAll('.gallery-item img').forEach(img => {
-      img.addEventListener('click', () => {
-        lightbox.style.display = 'flex';
-        lightboxImg.src = img.src;
-        lightboxImg.alt = img.alt;
+    document.querySelectorAll('.gallery-item img').forEach(img=>{
+      img.addEventListener('click', ()=>{
+        lightbox.style.display='flex';
+        lightboxImg.src=img.src;
+        lightboxImg.alt=img.alt;
       });
     });
-    lightbox.addEventListener('click', () => {
-      lightbox.style.display = 'none';
-    });
+    lightbox.addEventListener('click', ()=>{ lightbox.style.display='none'; });
   </script>
 </body>
 </html>
