@@ -1,96 +1,83 @@
-<!DOCTYPE html>
-<html lang="id">
+<!DOCTYPE html><html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Galeri — Alami & Fauna</title>
-  <style>
-    body { font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 0; padding: 0; }
-    header { background-color: #7ca982; color: white; padding: 15px 20px; text-align: center; }
-    header nav a { color: white; margin: 0 10px; text-decoration: none; font-weight: bold; }
-    header nav a.active { text-decoration: underline; }
-    .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
-    .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap: 15px; margin-bottom: 40px; }
-    .gallery-item { border-radius: 10px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.2); cursor: pointer; transition: transform 0.3s; }
-    .gallery-item:hover { transform: scale(1.05); }
-    .gallery-item img { width: 100%; height: 200px; object-fit: cover; display: block; }
-    .gallery-item figcaption { text-align: center; padding: 5px; background: #333; color: white; }
-    .lightbox { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.8); justify-content:center; align-items:center; z-index:1000; }
-    .lightbox img { max-width:90%; max-height:90%; border-radius:12px; }
-    .video-playlist h2 { color:#4c6b58; margin-bottom:15px; }
-    .videos { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px,1fr)); gap:20px; }
-    .video-frame { overflow:hidden; border-radius:12px; box-shadow:0 2px 8px rgba(0,0,0,0.2); }
-    .video-frame iframe { width:100%; height:200px; border:none; }
-    @media (min-width:768px) { .gallery-item img { height:250px; } .video-frame iframe { height:250px; } }
-    footer { background-color:#7ca982; color:white; text-align:center; padding:15px; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Galeri Hewan Indonesia</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* Reset dan style global */
+* {margin:0; padding:0; box-sizing:border-box;}
+body {font-family: 'Roboto', sans-serif; background-color: #f0f4f2; color:#333; line-height:1.6;}
+header {background-color:#a3d2ca; color:#fff; padding:30px 20px; text-align:center;}
+header h1 {font-size:2.2em; margin-bottom:10px;}
+nav {display:flex; justify-content:center; gap:25px; background-color:#077187; padding:15px;}
+nav a {color:#fff; text-decoration:none; font-weight:700; transition:0.3s;}
+nav a:hover {text-decoration:underline;}
+.gallery {display:grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap:25px; padding:30px;}
+.gallery-item {background:#fff; border-radius:12px; overflow:hidden; box-shadow:0 6px 12px rgba(0,0,0,0.15); transition: transform 0.3s, box-shadow 0.3s;}
+.gallery-item:hover {transform: scale(1.05); box-shadow:0 8px 16px rgba(0,0,0,0.2);}
+.gallery-item img {width:100%; display:block;}
+figcaption {padding:12px; text-align:center; font-weight:700; font-size:1em;}
+.video-section {text-align:center; padding:40px 20px; background:#e0f2f1;}
+.video-section h2 {margin-bottom:20px; color:#077187;}
+.video-section iframe {width:90%; max-width:600px; height:340px; border-radius:10px; border:none; margin-bottom:20px;}
+.quiz {padding:40px 20px; background:#f0f4f2;}
+.quiz h2 {text-align:center; color:#077187; margin-bottom:20px;}
+.quiz ul {list-style: disc inside; margin-bottom:20px;}
+footer {background:#077187; color:#fff; text-align:center; padding:15px;}
+</style>
 </head>
 <body>
-  <header>
-    <h1>Galeri Alami & Fauna</h1>
-    <nav>
-      <a href="index.html">Beranda</a>
-      <a href="fakta.html">Fakta</a>
-      <a href="dilindungi.html">Dilindungi</a>
-      <a href="galeri.html" class="active">Galeri</a>
-      <a href="kuis.html">Kuis</a>
-    </nav>
-  </header>
-
-  <main class="container">
-    <section class="gallery-grid">
-      <figure class="gallery-item">
-        <img src="https://imgur.com/a/05ew2OD" alt="Harimau Sumatra">
-        <figcaption>Harimau Sumatra</figcaption>
-      </figure>
-      <figure class="gallery-item">
-        <img src="https://imgur.com/a/1pjBELF" alt="Orangutan">
-        <figcaption>Orangutan</figcaption>
-      </figure>
-      <figure class="gallery-item">
-        <img src="https://imgur.com/a/JrZAonb" alt="Komodo">
-        <figcaption>Komodo</figcaption>
-      </figure>
-      <figure class="gallery-item">
-        <img src="https://imgur.com/a/c5Epet9" alt="Burung Pemangsa">
-        <figcaption>Burung Pemangsa</figcaption>
-      </figure>
-    </section>
-
-    <div class="lightbox" id="lightbox"><img src="" alt="Zoom Foto"></div>
-
-    <section class="video-playlist">
-      <h2>Video Pilihan</h2>
-      <div class="videos">
-        <div class="video-frame">
-          <iframe src="https://www.youtube.com/embed/gLZAgjjNz1U" title="Video Hewan 1" allowfullscreen></iframe>
-        </div>
-        <div class="video-frame">
-          <iframe src="https://www.youtube.com/embed/9aVPIqwerOs" title="Video Hewan 2" allowfullscreen></iframe>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <p>© <span id="year"></span> Alami & Fauna</p>
-  </footer>
-
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-
-    // Lightbox
-    const lightbox = document.getElementById('lightbox');
-    const lightboxImg = lightbox.querySelector('img');
-    document.querySelectorAll('.gallery-item img').forEach(img=>{
-      img.addEventListener('click', ()=>{
-        lightbox.style.display='flex';
-        lightboxImg.src=img.src;
-        lightboxImg.alt=img.alt;
-      });
-    });
-    lightbox.addEventListener('click', ()=>{ lightbox.style.display='none'; });
-  </script>
+<header>
+  <h1>Galeri Hewan Indonesia</h1>
+  <p>Fakta, foto, video, dan kuis menarik tentang hewan di Indonesia</p>
+</header>
+<nav>
+  <a href="#galeri">Galeri</a>
+  <a href="#video">Video</a>
+  <a href="#quiz">Kuis</a>
+</nav>
+<section id="galeri" class="gallery">
+  <figure class="gallery-item">
+    <img src="https://github.com/gluhp28/galeri-hewan/raw/main/harimau%20sumatra.jpg" alt="Harimau Sumatra">
+    <figcaption>Harimau Sumatra</figcaption>
+  </figure>
+  <figure class="gallery-item">
+    <img src="https://github.com/gluhp28/galeri-hewan/raw/main/orang%20utan.jpg" alt="Orangutan">
+    <figcaption>Orangutan</figcaption>
+  </figure>
+  <figure class="gallery-item">
+    <img src="https://github.com/gluhp28/galeri-hewan/raw/main/komodo.jpg" alt="Komodo">
+    <figcaption>Komodo</figcaption>
+  </figure>
+  <figure class="gallery-item">
+    <img src="https://github.com/gluhp28/galeri-hewan/raw/main/burung%20pemangsa.jpg" alt="Burung Pemangsa">
+    <figcaption>Burung Pemangsa</figcaption>
+  </figure>
+</section>
+<section id="video" class="video-section">
+  <h2>Video Hewan</h2>
+  <iframe src="https://www.youtube.com/embed/gLZAgjjNz1U" allowfullscreen></iframe>
+  <iframe src="https://www.youtube.com/embed/9aVPIqwerOs" allowfullscreen></iframe>
+</section>
+<section id="quiz" class="quiz">
+  <h2>Kuis Singkat</h2>
+  <p>1. Hewan apa yang merupakan predator terbesar di Indonesia?</p>
+  <ul>
+    <li>Harimau Sumatra</li>
+    <li>Orangutan</li>
+    <li>Komodo</li>
+    <li>Burung Pemangsa</li>
+  </ul>
+  <p>2. Hewan mana yang termasuk hewan dilindungi?</p>
+  <ul>
+    <li>Semua di galeri ini</li>
+    <li>Hanya Komodo</li>
+    <li>Hanya Harimau</li>
+  </ul>
+</section>
+<footer>
+  <p>© 2025 Galeri Hewan Indonesia</p>
+</footer>
 </body>
 </html>
-
