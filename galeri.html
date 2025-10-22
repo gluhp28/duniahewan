@@ -10,23 +10,18 @@
 body {font-family: 'Roboto', sans-serif; background-color: #f0f4f2; color:#333; line-height:1.6;}
 header {background-color:#a3d2ca; color:#fff; padding:30px 20px; text-align:center;}
 header h1 {font-size:2.2em; margin-bottom:10px;}
-header p {font-size:1.1em;}
 nav {display:flex; justify-content:center; gap:25px; background-color:#077187; padding:15px;}
 nav a {color:#fff; text-decoration:none; font-weight:700; transition:0.3s;}
 nav a:hover {text-decoration:underline;}
-section {padding:40px 20px;}
-.fakta, .dilindungi {background:#e0f2f1; margin-bottom:20px; border-radius:10px; padding:20px;}
-.fakta h2, .dilindungi h2 {color:#077187; margin-bottom:15px; text-align:center;}
-.fakta ul, .dilindungi ul {list-style: disc inside;}
-.gallery {display:grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap:25px;}
+.gallery {display:grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap:25px; padding:30px;}
 .gallery-item {background:#fff; border-radius:12px; overflow:hidden; box-shadow:0 6px 12px rgba(0,0,0,0.15); transition: transform 0.3s, box-shadow 0.3s;}
 .gallery-item:hover {transform: scale(1.05); box-shadow:0 8px 16px rgba(0,0,0,0.2);}
 .gallery-item img {width:100%; display:block;}
 figcaption {padding:12px; text-align:center; font-weight:700; font-size:1em;}
-.video-section {text-align:center; background:#f0f4f2;}
+.video-section {text-align:center; padding:40px 20px; background:#e0f2f1;}
 .video-section h2 {margin-bottom:20px; color:#077187;}
 .video-section iframe {width:90%; max-width:600px; height:340px; border-radius:10px; border:none; margin-bottom:20px;}
-.quiz {background:#e0f2f1; border-radius:10px; padding:20px;}
+.quiz {padding:40px 20px; background:#f0f4f2;}
 .quiz h2 {text-align:center; color:#077187; margin-bottom:20px;}
 .quiz ul {list-style: disc inside; margin-bottom:20px;}
 footer {background:#077187; color:#fff; text-align:center; padding:15px;}
@@ -35,31 +30,13 @@ footer {background:#077187; color:#fff; text-align:center; padding:15px;}
 <body>
 <header>
   <h1>Galeri Hewan Indonesia</h1>
-  <p>Fakta menarik, hewan dilindungi, galeri foto, video, dan kuis</p>
+  <p>Fakta, foto, video, dan kuis menarik tentang hewan di Indonesia</p>
 </header>
 <nav>
-  <a href="#beranda">Beranda</a>
   <a href="#galeri">Galeri</a>
   <a href="#video">Video</a>
   <a href="#quiz">Kuis</a>
 </nav>
-<section id="beranda" class="fakta">
-  <h2>Fakta Menarik Tentang Hewan Indonesia</h2>
-  <ul>
-    <li>Harimau Sumatra adalah predator terbesar di pulau Sumatra.</li>
-    <li>Orangutan hanya hidup di pulau Kalimantan dan Sumatra.</li>
-    <li>Komodo adalah kadal terbesar di dunia dan dilindungi di Taman Nasional Komodo.</li>
-    <li>Burung pemangsa memiliki penglihatan sangat tajam untuk menangkap mangsa.</li>
-  </ul>
-</section>
-<section id="dilindungi" class="dilindungi">
-  <h2>Hewan Dilindungi</h2>
-  <ul>
-    <li>Harimau Sumatra</li>
-    <li>Orangutan</li>
-    <li>Komodo</li>
-  </ul>
-</section>
 <section id="galeri" class="gallery">
   <figure class="gallery-item">
     <img src="https://github.com/gluhp28/galeri-hewan/raw/main/harimau%20sumatra.jpg" alt="Harimau Sumatra">
