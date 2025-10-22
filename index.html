@@ -10,27 +10,32 @@ body {
   font-family: 'Roboto', sans-serif;
   margin: 0;
   padding: 0;
-  background: #f0f4f2;
+  background: #e6f0e6; /* background hijau muda */
   color: #333;
 }
 header {
-  background: #a3d2ca;
+  background: #4CAF50; /* hijau */
   color: #fff;
   padding: 30px 20px;
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 header h1 {
   font-size: 2.2em;
-  margin-bottom: 10px;
+  margin: 0;
 }
-header p {
-  font-size: 1.1em;
+header img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
 }
 nav {
   display: flex;
   justify-content: center;
   gap: 25px;
-  background: #077187;
+  background: #388E3C; /* hijau lebih gelap */
   padding: 15px;
 }
 nav a {
@@ -45,13 +50,13 @@ section {
   padding: 40px 20px;
 }
 .fakta {
-  background: #e0f2f1;
+  background: #C8E6C9; /* hijau muda */
   margin-bottom: 20px;
   border-radius: 10px;
   padding: 20px;
 }
 .fakta h2 {
-  color: #077187;
+  color: #2E7D32; /* hijau tua */
   margin-bottom: 15px;
   text-align: center;
 }
@@ -71,7 +76,7 @@ ul {
   margin-bottom: 20px;
 }
 footer {
-  background: #077187;
+  background: #388E3C;
   color: #fff;
   text-align: center;
   padding: 15px;
@@ -81,6 +86,7 @@ footer {
 <body>
 <header>
   <h1>Galeri Hewan Indonesia</h1>
+  <img src="https://i.imgur.com/6pO8h5M.jpg" alt="Kucing">
 </header>
 <nav>
   <a href="index.html">Beranda</a>
