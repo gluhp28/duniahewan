@@ -40,6 +40,10 @@
   <main class="container">
     <section class="gallery-grid">
       <figure class="gallery-item">
+        <img src="https://cdn.pixabay.com/photo/2016/03/09/09/17/tiger-1245915_1280.jpg" alt="Harimau Sumatra">
+        <figcaption>Harimau Sumatra</figcaption>
+      </figure>
+      <figure class="gallery-item">
         <img src="https://cdn.pixabay.com/photo/2017/08/30/01/11/orangutan-2695562_1280.jpg" alt="Orangutan">
         <figcaption>Orangutan</figcaption>
       </figure>
@@ -48,11 +52,7 @@
         <figcaption>Komodo</figcaption>
       </figure>
       <figure class="gallery-item">
-        <img src="https://cdn.pixabay.com/photo/2017/08/30/01/11/orangutan-2695562_1280.jpg" alt="Harimau Sumatra">
-        <figcaption>Harimau Sumatra</figcaption>
-      </figure>
-      <figure class="gallery-item">
-        <img src="https://cdn.pixabay.com/photo/2016/11/21/15/14/komodo-1846192_1280.jpg" alt="Burung Pemangsa">
+        <img src="https://cdn.pixabay.com/photo/2017/03/28/12/05/eagle-2186731_1280.jpg" alt="Burung Pemangsa">
         <figcaption>Burung Pemangsa</figcaption>
       </figure>
     </section>
@@ -78,15 +78,6 @@
 
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
-
-    // Animasi fade-in
-    const items = document.querySelectorAll('.gallery-item');
-    const observer = new IntersectionObserver(entries=>{
-      entries.forEach(entry=>{
-        if(entry.isIntersecting){ entry.target.style.opacity='1'; entry.target.style.transform='translateY(0)'; }
-      });
-    },{threshold:0.2});
-    items.forEach(item=>observer.observe(item));
 
     // Lightbox
     const lightbox = document.getElementById('lightbox');
