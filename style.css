@@ -34,23 +34,23 @@ header nav a:active { transform: scale(0.95); }
 
 /* --- Shrink header saat scroll --- */
 header.shrink {
-  padding: 8px 10px; /* lebih kecil dari normal */
+  padding: 8px 10px; /* header lebih kecil */
 }
 
 header.shrink nav a {
-  padding: 4px 8px;   /* link lebih kecil */
-  font-size: 12px;    /* teks lebih kecil */
+  padding: 6px 12px;   /* link lebih kecil, tetap inline */
+  font-size: 12px;     /* teks lebih kecil */
 }
 
-/* Responsif HP agar konten tidak tertutup header */
+/* Responsif HP untuk scroll, tetap inline */
 @media screen and (max-width: 600px) {
   header.shrink nav a {
-    padding: 4px 0;
-    font-size: 0.8em;
+    padding: 5px 10px;
+    font-size: 11px;
   }
 
   .container {
-    margin-top: 70px; /* supaya konten tidak tertutup header */
+    margin-top: 70px; /* mencegah konten tertutup header */
   }
 }
 
