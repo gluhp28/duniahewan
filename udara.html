@@ -1,43 +1,148 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>udara - Dunia Hewan</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hewan Udara</title>
+  <style>
+    /* Navbar Bubble Lucu */
+    header {
+      text-align: center;
+      padding: 20px 10px;
+      background: linear-gradient(90deg, #89f7fe, #66a6ff);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    nav a {
+      display: inline-block;
+      background: white;
+      color: #0056b3;
+      padding: 10px 18px;
+      margin: 6px 10px;
+      border-radius: 50px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+    }
+    nav a:hover {
+      background: #0056b3;
+      color: white;
+      transform: scale(1.1);
+    }
+
+    /* Grid Hewan */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+    .card {
+      background: #f9f9f9;
+      border-radius: 15px;
+      overflow: hidden;
+      cursor: pointer;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+      transition: transform 0.3s;
+    }
+    .card:hover { transform: scale(1.03); }
+    .card img { width: 100%; display: block; }
+    .card-content { padding: 15px; }
+    .card-content h3 { margin: 0 0 10px; }
+    .card-content p { margin: 0; }
+
+    /* Modal Fullscreen */
+    .modal { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.8); justify-content:center; align-items:center; z-index:2000; }
+    .modal-content { background:white; border-radius:15px; max-width:600px; width:90%; padding:20px; position: relative; }
+    .modal img { width:100%; border-radius:10px; }
+    .close { position:absolute; top:10px; right:15px; font-size:25px; cursor:pointer; }
+  </style>
 </head>
 <body>
+
 <header>
-<h1>Dunia Hewan - udara</h1>
-<nav>
-<a href="index.html">Beranda</a>
-<a href="darathutan.html">Darat / Savana</a>
-<a href="laut.html">Laut</a>
-<a href="udara.html">Udara</a>
-<a href="hutantropis.html">Hutan Tropis</a>
-<a href="kutub.html">Kutub</a>
-<a href="faktamenarik.html">Fakta Menarik</a>
-<a href="kuis.html">Kuis</a>
-</nav>
-<section class="container">
-<div class="hewan">
-<h3>Elang</h3>
-<img src="https://github.com/gluhp28/foto-hewan/raw/main/elang.jpg" alt="Elang">
-<p><strong>Deskripsi:</strong> Burung pemangsa besar dengan penglihatan tajam.</p>
-<p><strong>Fakta Menarik:</strong> Bisa melihat mangsa dari ketinggian ratusan meter.</p>
+  <nav>
+    <a href="index.html">Beranda</a>
+    <a href="darat.html">Darat</a>
+    <a href="laut.html">Laut</a>
+    <a href="udara.html">Udara</a>
+    <a href="hutantropis.html">Hutan Tropis</a>
+    <a href="kutub.html">Kutub</a>
+    <a href="kuis.html">Kuis</a>
+  </nav>
+</header>
+
+<main>
+  <div class="grid">
+    <!-- Contoh Kartu Hewan -->
+    <div class="card" onclick="openModal('burungHantu')">
+      <img src="https://github.com/gluhp28/foto-hewan/raw/main/burung%20hantu.jpg" alt="Burung Hantu">
+      <div class="card-content">
+        <h3>Burung Hantu</h3>
+        <p>Misterius dan aktif di malam hari.</p>
+      </div>
+    </div>
+    <div class="card" onclick="openModal('elang')">
+      <img src="https://github.com/gluhp28/foto-hewan/raw/main/elang.jpg" alt="Elang">
+      <div class="card-content">
+        <h3>Elang</h3>
+        <p>Raja langit dengan penglihatan tajam.</p>
+      </div>
+    </div>
+    <div class="card" onclick="openModal('merpati')">
+      <img src="https://github.com/gluhp28/foto-hewan/raw/main/merpati.jpg" alt="Merpati">
+      <div class="card-content">
+        <h3>Merpati</h3>
+        <p>Simbol perdamaian, bisa navigasi jauh.</p>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- Modal -->
+<div id="modal" class="modal" onclick="closeModal()">
+  <div class="modal-content" onclick="event.stopPropagation()">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <img id="modal-img" src="" alt="">
+    <h3 id="modal-title"></h3>
+    <p id="modal-fakta"></p>
+  </div>
 </div>
-<div class="hewan">
-<h3>Burung Hantu</h3>
-<img src="https://github.com/gluhp28/foto-hewan/raw/main/burung%20hantu.jpg" alt="Burung Hantu">
-<p><strong>Deskripsi:</strong> Burung nokturnal yang berburu malam hari dengan penglihatan dan pendengaran tajam.</p>
-<p><strong>Fakta Menarik:</strong> Kepala bisa berputar hingga 270° untuk melihat sekeliling.</p>
-</div>
-<div class="hewan">
-<h3>Merpati</h3>
-<img src="https://github.com/gluhp28/foto-hewan/raw/main/merpati.jpg" alt="Merpati">
-<p><strong>Deskripsi:</strong> Burung yang sering ditemukan di perkotaan dan dikenal bisa kembali ke sarangnya.</p>
-<p><strong>Fakta Menarik:</strong> Dapat mengenali wajah manusia dan arah navigasinya sangat akurat.</p>
-</div>
-</section>
+
+<script>
+const hewanData = {
+  burungHantu: {
+    img:"https://github.com/gluhp28/foto-hewan/raw/main/burung%20hantu.jpg",
+    title:"Burung Hantu",
+    fakta:"Misterius, aktif malam hari, punya pendengaran tajam."
+  },
+  elang: {
+    img:"https://github.com/gluhp28/foto-hewan/raw/main/elang.jpg",
+    title:"Elang",
+    fakta:"Raja langit, penglihatan super tajam, pemburu handal."
+  },
+  merpati: {
+    img:"https://github.com/gluhp28/foto-hewan/raw/main/merpati.jpg",
+    title:"Merpati",
+    fakta:"Simbol perdamaian, bisa menavigasi jarak jauh."
+  }
+};
+
+function openModal(key){
+  const data = hewanData[key];
+  document.getElementById('modal-img').src = data.img;
+  document.getElementById('modal-title').textContent = data.title;
+  document.getElementById('modal-fakta').textContent = data.fakta;
+  document.getElementById('modal').style.display = 'flex';
+}
+
+function closeModal(){
+  document.getElementById('modal').style.display = 'none';
+}
+</script>
+
 </body>
 </html>
