@@ -44,13 +44,20 @@ header.shrink nav a {
 
 /* Responsif HP untuk scroll, tetap inline */
 @media screen and (max-width: 600px) {
+  header nav a {
+    display: inline-block; /* tetap inline, tidak satu baris */
+    padding: 8px 10px;     /* lebih kecil dari normal */
+    font-size: 12px;       /* teks lebih kecil */
+    margin: 4px 6px;       /* jarak antar link */
+  }
+
   header.shrink nav a {
-    padding: 5px 10px;
+    padding: 5px 8px;      /* lebih kecil saat scroll */
     font-size: 11px;
   }
 
   .container {
-    margin-top: 70px; /* mencegah konten tertutup header */
+    margin-top: 60px;      /* mencegah konten tertutup header */
   }
 }
 
