@@ -1,69 +1,31 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hewan Udara</title>
-  <style>
-    /* Navbar Bubble Lucu */
-    header {
-      text-align: center;
-      padding: 20px 10px;
-      background: linear-gradient(90deg, #89f7fe, #66a6ff);
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    }
-    nav a {
-      display: inline-block;
-      background: white;
-      color: #0056b3;
-      padding: 10px 18px;
-      margin: 6px 10px;
-      border-radius: 50px;
-      font-weight: 600;
-      text-decoration: none;
-      transition: all 0.3s ease;
-      box-shadow: 0 3px 6px rgba(0,0,0,0.2);
-    }
-    nav a:hover {
-      background: #0056b3;
-      color: white;
-      transform: scale(1.1);
-    }
-
-    /* Grid Hewan */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-      padding: 20px;
-    }
-    .card {
-      background: #f9f9f9;
-      border-radius: 15px;
-      overflow: hidden;
-      cursor: pointer;
-      box-shadow: 0 3px 8px rgba(0,0,0,0.2);
-      transition: transform 0.3s;
-    }
-    .card:hover { transform: scale(1.03); }
-    .card img { width: 100%; display: block; }
-    .card-content { padding: 15px; }
-    .card-content h3 { margin: 0 0 10px; }
-    .card-content p { margin: 0; }
-
-    /* Modal Fullscreen */
-    .modal { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.8); justify-content:center; align-items:center; z-index:2000; }
-    .modal-content { background:white; border-radius:15px; max-width:600px; width:90%; padding:20px; position: relative; }
-    .modal img { width:100%; border-radius:10px; }
-    .close { position:absolute; top:10px; right:15px; font-size:25px; cursor:pointer; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Udara - Dunia Hewan</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<style>
+body { margin:0; font-family:'Poppins', sans-serif; background: linear-gradient(to bottom, #c0eaff, #7ec0ee); color:#333; }
+header { text-align:center; padding:1em; background-color: rgba(0,123,255,0.8); color:white; }
+nav a { margin:0 10px; color:white; text-decoration:none; font-weight:600; padding:8px 12px; border-radius:5px; transition:background 0.3s;}
+nav a:hover { background-color: rgba(255,255,255,0.3);}
+.container { max-width:1000px; margin:20px auto; padding:20px; }
+.grid { display:grid; grid-template-columns: repeat(auto-fit,minmax(200px,1fr)); gap:20px; }
+.card { background:white; border-radius:15px; overflow:hidden; box-shadow:0 6px 15px rgba(0,0,0,0.2); cursor:pointer; transition: transform 0.3s, box-shadow 0.3s; }
+.card img { width:100%; display:block; transition: transform 0.3s; }
+.card:hover img { transform: scale(1.05); }
+.card h3 { margin:10px; text-align:center; color:#004080; }
+.overlay-full { position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.9); display:none; justify-content:center; align-items:center; z-index:1000; flex-direction:column; color:white; padding:20px; box-sizing:border-box; overflow:auto; text-align:center; }
+.overlay-full img { max-width:90%; max-height:50%; border-radius:15px; margin-bottom:20px; }
+.overlay-full h2 { margin:10px 0; color:#ffd700; }
+.overlay-full p { margin:5px 0; line-height:1.5; }
+.close-btn { position:absolute; top:20px; right:30px; font-size:30px; font-weight:bold; cursor:pointer; color:white; }
+</style>
 </head>
 <body>
-
 <header>
+<h1>Udara - Dunia Hewan</h1>
   <nav>
     <a href="index.html">Beranda</a>
     <a href="darat.html">Darat</a>
@@ -75,74 +37,75 @@
   </nav>
 </header>
 
-<main>
-  <div class="grid">
-    <!-- Contoh Kartu Hewan -->
-    <div class="card" onclick="openModal('burungHantu')">
-      <img src="https://github.com/gluhp28/foto-hewan/raw/main/burung%20hantu.jpg" alt="Burung Hantu">
-      <div class="card-content">
-        <h3>Burung Hantu</h3>
-        <p>Misterius dan aktif di malam hari.</p>
-      </div>
-    </div>
-    <div class="card" onclick="openModal('elang')">
-      <img src="https://github.com/gluhp28/foto-hewan/raw/main/elang.jpg" alt="Elang">
-      <div class="card-content">
-        <h3>Elang</h3>
-        <p>Raja langit dengan penglihatan tajam.</p>
-      </div>
-    </div>
-    <div class="card" onclick="openModal('merpati')">
-      <img src="https://github.com/gluhp28/foto-hewan/raw/main/merpati.jpg" alt="Merpati">
-      <div class="card-content">
-        <h3>Merpati</h3>
-        <p>Simbol perdamaian, bisa navigasi jauh.</p>
-      </div>
-    </div>
-  </div>
-</main>
+<style>
+header {
+  text-align: center;
+  padding: 20px 10px;
+  background: linear-gradient(90deg, #89f7fe, #66a6ff);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+nav a {
+  display: inline-block;
+  background: white;
+  color: #0056b3;
+  padding: 10px 18px;
+  margin: 6px 10px;
+  border-radius: 50px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+nav a:hover {
+  background: #0056b3;
+  color: white;
+  transform: scale(1.1);
+}
+</style>
 
-<!-- Modal -->
-<div id="modal" class="modal" onclick="closeModal()">
-  <div class="modal-content" onclick="event.stopPropagation()">
-    <span class="close" onclick="closeModal()">&times;</span>
-    <img id="modal-img" src="" alt="">
-    <h3 id="modal-title"></h3>
-    <p id="modal-fakta"></p>
+<div class="container">
+  <div class="grid">
+    <div class="card" onclick="openOverlay('Burung Cendrawasih','https://github.com/gluhp28/foto-hewan/raw/main/burung%20cendrawasih.jpg','Burung eksotis dari Papua dengan bulu warna-warni.','Burung ini terkenal karena tari kawin yang menakjubkan.')">
+      <img src="https://github.com/gluhp28/foto-hewan/raw/main/burung%20cendrawasih.jpg" alt="Burung Cendrawasih">
+      <h3>Burung Cendrawasih</h3>
+    </div>
+    <div class="card" onclick="openOverlay('Burung Hantu','https://github.com/gluhp28/foto-hewan/raw/main/burung%20hantu.jpg','Aktif malam hari, memiliki penglihatan dan pendengaran tajam.','Mereka bisa memutar kepala hingga 270 derajat.')">
+      <img src="https://github.com/gluhp28/foto-hewan/raw/main/burung%20hantu.jpg" alt="Burung Hantu">
+      <h3>Burung Hantu</h3>
+    </div>
+    <div class="card" onclick="openOverlay('Elang','https://github.com/gluhp28/foto-hewan/raw/main/elang.jpg','Raja langit dengan penglihatan super tajam.','Elang bisa menyelam dengan kecepatan tinggi saat menangkap mangsa.')">
+      <img src="https://github.com/gluhp28/foto-hewan/raw/main/elang.jpg" alt="Elang">
+      <h3>Elang</h3>
+    </div>
+    <div class="card" onclick="openOverlay('Merpati','https://github.com/gluhp28/foto-hewan/raw/main/merpati.jpg','Burung yang dapat menavigasi jarak jauh.','Sering digunakan sebagai simbol perdamaian.')">
+      <img src="https://github.com/gluhp28/foto-hewan/raw/main/merpati.jpg" alt="Merpati">
+      <h3>Merpati</h3>
+    </div>
   </div>
 </div>
 
+<div class="overlay-full" id="fullscreenOverlay">
+  <span class="close-btn" onclick="closeOverlay()">&times;</span>
+  <img id="overlayImg" src="" alt="Hewan">
+  <h2 id="overlayName">Nama Hewan</h2>
+  <p id="overlayDesc"><strong>Deskripsi:</strong> </p>
+  <p id="overlayFact"><strong>Fakta Menarik:</strong> </p>
+</div>
+
 <script>
-const hewanData = {
-  burungHantu: {
-    img:"https://github.com/gluhp28/foto-hewan/raw/main/burung%20hantu.jpg",
-    title:"Burung Hantu",
-    fakta:"Misterius, aktif malam hari, punya pendengaran tajam."
-  },
-  elang: {
-    img:"https://github.com/gluhp28/foto-hewan/raw/main/elang.jpg",
-    title:"Elang",
-    fakta:"Raja langit, penglihatan super tajam, pemburu handal."
-  },
-  merpati: {
-    img:"https://github.com/gluhp28/foto-hewan/raw/main/merpati.jpg",
-    title:"Merpati",
-    fakta:"Simbol perdamaian, bisa menavigasi jarak jauh."
-  }
-};
-
-function openModal(key){
-  const data = hewanData[key];
-  document.getElementById('modal-img').src = data.img;
-  document.getElementById('modal-title').textContent = data.title;
-  document.getElementById('modal-fakta').textContent = data.fakta;
-  document.getElementById('modal').style.display = 'flex';
+function openOverlay(name,img,desc,fact){
+  document.getElementById('overlayImg').src = img;
+  document.getElementById('overlayName').innerText = name;
+  document.getElementById('overlayDesc').innerHTML = '<strong>Deskripsi:</strong> '+desc;
+  document.getElementById('overlayFact').innerHTML = '<strong>Fakta Menarik:</strong> '+fact;
+  document.getElementById('fullscreenOverlay').style.display='flex';
+  window.scrollTo(0,0);
 }
-
-function closeModal(){
-  document.getElementById('modal').style.display = 'none';
+function closeOverlay(){
+  document.getElementById('fullscreenOverlay').style.display='none';
 }
 </script>
-
 </body>
 </html>
