@@ -34,12 +34,12 @@ header nav a:active { transform: scale(0.95); }
 
 /* --- Shrink header saat scroll --- */
 header.shrink {
-  padding: 10px 10px;
+  padding: 8px 10px;
 }
 
 header.shrink nav a {
-  padding: 8px 12px;
-  font-size: 0.9em;
+  padding: 6px 10px;
+  font-size: 0.85em;
 }
 
 /* --- Responsif untuk layar kecil --- */
