@@ -29,16 +29,47 @@ nav a:hover { background-color: rgba(255,255,255,0.3);}
 <header>
 <h1>Dunia Hewan - Kuis</h1>
 <nav>
-<a href="index.html">Beranda</a>
-<a href="darathutan.html">Darat</a>
-<a href="laut.html">Laut</a>
-<a href="udara.html">Udara</a>
-<a href="hutantropis.html">Hutan Tropis</a>
-<a href="kutub.html">Kutub</a>
-<a href="faktamenarik.html">Fakta Menarik</a>
-<a href="kuis.html">Kuis</a>
-</nav>
+    <a href="/duniahewan/index.html">Beranda</a>
+    <a href="/duniahewan/darathutan.html">Darat</a>
+    <a href="/duniahewan/laut.html">Laut</a>
+    <a href="/duniahewan/udara.html">Udara</a>
+    <a href="/duniahewan/hutantropis.html">Hutan Tropis</a>
+    <a href="/duniahewan/kutub.html">Kutub</a>
+    <a href="/duniahewan/faktamenarik.html">Fakta Menarik</a>
+    <a href="/duniahewan/kuis.html">Kuis</a>
+  </nav>
 </header>
+
+<style>
+header {
+  text-align: center;
+  padding: 20px 10px;
+  background: linear-gradient(90deg, #d0e8c6, #fdf6e3); /* soft alam hijau → krem */
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+nav a {
+  display: inline-block;
+  background: #ffffff; /* bubble putih */
+  color: #556b2f; /* olive green */
+  padding: 10px 18px;
+  margin: 6px 10px;
+  border-radius: 50px; /* bulat */
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+nav a:hover {
+  background: #cce5b1; /* hijau lembut saat hover */
+  color: #2e4a1f; /* hijau tua */
+  transform: scale(1.1);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+nav a:active { transform: scale(0.95); }
+</style>
 
 <section class="container" id="category-container">
 <h2>Pilih Kategori Kuis</h2>
