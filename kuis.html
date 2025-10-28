@@ -10,14 +10,17 @@ body { font-family: 'Poppins', sans-serif; margin:0; background:#d0f0c0; color:#
 header { text-align:center; padding:1em; background-color: rgba(34,139,34,0.8); color:white; }
 nav a { margin:0 10px; color:white; text-decoration:none; font-weight:600; padding:8px 12px; border-radius:5px; transition:background 0.3s;}
 nav a:hover { background-color: rgba(255,255,255,0.3);}
-.container { max-width:700px; margin:20px auto; text-align:center; padding:20px; }
-.card { background:white; padding:20px; border-radius:15px; box-shadow:0 8px 16px rgba(0,0,0,0.2); margin-bottom:20px; }
+.container { max-width:900px; margin:20px auto; text-align:center; padding:20px; }
+.card { background:white; padding:20px; border-radius:15px; box-shadow:0 8px 16px rgba(0,0,0,0.2); margin-bottom:30px; }
+.card h2 { margin-bottom:10px; color:#2e8b57; }
 .btn { display:block; margin:10px auto; padding:12px 20px; border:none; border-radius:8px; font-weight:600; cursor:pointer; width:80%; transition: transform 0.2s; }
 .btn:hover { transform: scale(1.05);}
 .progress { height:20px; background:#eee; border-radius:10px; overflow:hidden; margin-bottom:20px; }
 .progress-bar { height:100%; background:#2e8b57; width:0%; transition:width 0.3s; border-radius:10px;}
 .correct { background-color: #4CAF50 !important; color:white;}
 .wrong { background-color: #f44336 !important; color:white;}
+.next-btn { display:block; margin:15px auto; padding:10px 20px; background:#2e8b57; color:white; border:none; border-radius:8px; font-weight:600; cursor:pointer; transition: transform 0.2s; }
+.next-btn:hover { transform: scale(1.05); background:#246b45; }
 </style>
 </head>
 <body>
@@ -36,70 +39,146 @@ nav a:hover { background-color: rgba(255,255,255,0.3);}
 </header>
 <section class="container">
 <div class="progress"><div class="progress-bar" id="progress-bar"></div></div>
-<div class="card" id="quiz-card">
-<h2 id="question"></h2>
-<div id="answers"></div>
-<button id="next-btn" style="display:none;">Next</button>
-</div>
+
+<div id="quiz-container"></div>
+
 </section>
+
 <script>
-const quizData = [
-{question:"Hewan mana yang dikenal sebagai 'Raja Hutan'?", answers:["Singa","Zebra","Gajah"], correct:"Singa"},
-{question:"Ikan badut hidup bersimbiosis dengan?", answers:["Anemon laut","Karang","Rumput Laut"], correct:"Anemon laut"},
-{question:"Burung apa yang bisa berputar kepala sampai 270°?", answers:["Elang","Burung Hantu","Merpati"], correct:"Burung Hantu"},
-{question:"Hewan laut terbesar di bumi adalah?", answers:["Paus Biru","Lumba-lumba","Kura-kura Laut"], correct:"Paus Biru"},
-{question:"Hewan apa yang bisa tidur sebagian otaknya tetap aktif?", answers:["Anjing Laut","Penguin","Singa Laut"], correct:"Anjing Laut"},
-{question:"Primata besar yang hidup di pohon hutan hujan tropis?", answers:["Orang Utan","Harimau","Gajah"], correct:"Orang Utan"},
-{question:"Burung tropis dengan bulu warna-warni indah?", answers:["Burung Cendrawasih","Merpati","Burung Hantu"], correct:"Burung Cendrawasih"},
-{question:"Mamalia laut cerdas dan sosial?", answers:["Lumba-lumba","Paus Biru","Kura-kura Laut"], correct:"Lumba-lumba"},
-{question:"Mamalia darat terbesar dengan belalai panjang?", answers:["Gajah","Harimau","Jerapah"], correct:"Gajah"},
-{question:"Hewan dengan leher terpanjang di dunia?", answers:["Jerapah","Zebra","Singa"], correct:"Jerapah"}
+const categories = [
+  {name:"Darat / Savana", questions:[
+    {q:"Hewan mana yang dikenal sebagai 'Raja Hutan'?", a:["Singa","Zebra","Gajah"], correct:"Singa"},
+    {q:"Hewan darat terbesar dengan belalai panjang?", a:["Gajah","Harimau","Jerapah"], correct:"Gajah"},
+    {q:"Hewan pemakan bambu yang terkenal di Asia?", a:["Panda","Singa","Zebra"], correct:"Panda"},
+    {q:"Hewan dengan leher terpanjang di dunia?", a:["Jerapah","Singa","Zebra"], correct:"Jerapah"},
+    {q:"Hewan cepat di savana yang memiliki corak belang?", a:["Zebra","Singa","Kuda Nil"], correct:"Zebra"}
+  ]},
+  {name:"Laut", questions:[
+    {q:"Ikan badut hidup bersimbiosis dengan?", a:["Anemon laut","Karang","Rumput Laut"], correct:"Anemon laut"},
+    {q:"Mamalia laut cerdas dan sosial?", a:["Lumba-lumba","Paus Biru","Kura-kura Laut"], correct:"Lumba-lumba"},
+    {q:"Hewan laut terbesar di bumi adalah?", a:["Paus Biru","Lumba-lumba","Kura-kura Laut"], correct:"Paus Biru"},
+    {q:"Hewan laut yang bisa tidur sebagian otaknya tetap aktif?", a:["Anjing Laut","Penguin","Singa Laut"], correct:"Anjing Laut"},
+    {q:"Hewan laut dengan cangkang keras dan bisa berenang jauh?", a:["Kura Kura Laut","Ikan Badut","Lumba-lumba"], correct:"Kura Kura Laut"}
+  ]},
+  {name:"Udara", questions:[
+    {q:"Burung apa yang bisa berputar kepala sampai 270°?", a:["Elang","Burung Hantu","Merpati"], correct:"Burung Hantu"},
+    {q:"Burung tropis dengan bulu warna-warni indah?", a:["Burung Cendrawasih","Merpati","Burung Hantu"], correct:"Burung Cendrawasih"},
+    {q:"Burung cepat yang sering menjadi simbol keberanian?", a:["Elang","Merpati","Burung Hantu"], correct:"Elang"},
+    {q:"Burung yang identik dengan perdamaian?", a:["Merpati","Burung Hantu","Elang"], correct:"Merpati"},
+    {q:"Burung malam yang berburu saat gelap?", a:["Burung Hantu","Elang","Merpati"], correct:"Burung Hantu"}
+  ]},
+  {name:"Hutan Tropis", questions:[
+    {q:"Primata besar yang hidup di pohon hutan hujan tropis?", a:["Orang Utan","Harimau","Gajah"], correct:"Orang Utan"},
+    {q:"Hewan bertanduk di hutan tropis?", a:["Rusa","Harimau","Gajah"], correct:"Rusa"},
+    {q:"Hewan pemakan daun yang besar di hutan tropis?", a:["Gajah","Orang Utan","Harimau"], correct:"Gajah"},
+    {q:"Hewan karnivora yang berbulu oranye dengan garis hitam?", a:["Harimau","Orang Utan","Rusa"], correct:"Harimau"},
+    {q:"Hewan dengan sayap tapi hidup di hutan tropis?", a:["Burung Cendrawasih","Kupu-Kupu","Orang Utan"], correct:"Burung Cendrawasih"}
+  ]},
+  {name:"Kutub", questions:[
+    {q:"Hewan yang hidup di Kutub Utara dan berbulu putih tebal?", a:["Beruang Kutub","Singa","Gajah"], correct:"Beruang Kutub"},
+    {q:"Hewan laut yang sering terlihat seperti memakai jas hitam-putih?", a:["Penguin","Paus Biru","Lumba-lumba"], correct:"Penguin"},
+    {q:"Mamalia laut terbesar di kutub?", a:["Paus Biru","Penguin","Anjing Laut"], correct:"Paus Biru"},
+    {q:"Hewan pemangsa puncak di Kutub Utara?", a:["Beruang Kutub","Penguin","Anjing Laut"], correct:"Beruang Kutub"},
+    {q:"Hewan herbivora dengan corak belang yang hidup di Kutub Selatan?", a:["Tidak ada","Zebra","Singa"], correct:"Tidak ada"}
+  ]}
 ];
 
-let current = 0;
-const questionEl = document.getElementById("question");
-const answersEl = document.getElementById("answers");
-const nextBtn = document.getElementById("next-btn");
+let currentCategory = 0;
+let currentQuestion = 0;
+
+const quizContainer = document.getElementById("quiz-container");
 const progressBar = document.getElementById("progress-bar");
 
 function showQuestion(){
-    const q = quizData[current];
-    questionEl.textContent = q.question;
-    answersEl.innerHTML = "";
-    q.answers.forEach(ans=>{
-        const btn = document.createElement("button");
-        btn.className="btn";
-        btn.textContent = ans;
-        btn.onclick = () => checkAnswer(btn, ans, q.correct);
-        answersEl.appendChild(btn);
-    });
-    nextBtn.style.display="none";
-    progressBar.style.width = ((current)/quizData.length)*100 + "%";
+  quizContainer.innerHTML = "";
+  const category = categories[currentCategory];
+  const questionObj = category.questions[currentQuestion];
+
+  const card = document.createElement("div");
+  card.className = "card";
+
+  const h2 = document.createElement("h2");
+  h2.textContent = `${category.name} - Soal ${currentQuestion+1}`;
+  card.appendChild(h2);
+
+  const p = document.createElement("p");
+  p.textContent = questionObj.q;
+  card.appendChild(p);
+
+  const answersDiv = document.createElement("div");
+  questionObj.a.forEach(ans=>{
+    const btn = document.createElement("button");
+    btn.className="btn";
+    btn.textContent=ans;
+    btn.onclick = () => checkAnswer(btn, ans, questionObj.correct);
+    answersDiv.appendChild(btn);
+  });
+  card.appendChild(answersDiv);
+
+  const nextBtn = document.createElement("button");
+  nextBtn.className="next-btn";
+  nextBtn.textContent="Next";
+  nextBtn.style.display="none";
+  nextBtn.onclick = ()=>{
+    currentQuestion++;
+    if(currentQuestion >= category.questions.length){
+      currentCategory++;
+      currentQuestion=0;
+      if(currentCategory >= categories.length){
+        showEndMessage();
+        return;
+      }
+    }
+    showQuestion();
+  }
+  card.appendChild(nextBtn);
+
+  quizContainer.appendChild(card);
+
+  updateProgress();
 }
 
 function checkAnswer(btn, ans, correct){
-    const allBtns = answersEl.querySelectorAll("button");
-    allBtns.forEach(b=>b.disabled=true);
-    if(ans===correct){
-        btn.classList.add("correct");
-    } else {
-        btn.classList.add("wrong");
-        const correctBtn = Array.from(allBtns).find(b=>b.textContent===correct);
-        if(correctBtn) correctBtn.classList.add("correct");
-    }
-    nextBtn.style.display="block";
+  const allBtns = btn.parentElement.querySelectorAll("button");
+  allBtns.forEach(b=>b.disabled=true);
+  if(ans===correct){
+    btn.classList.add("correct");
+  } else {
+    btn.classList.add("wrong");
+    const correctBtn = Array.from(allBtns).find(b=>b.textContent===correct);
+    if(correctBtn) correctBtn.classList.add("correct");
+  }
+  btn.parentElement.nextElementSibling.style.display="block";
 }
 
-nextBtn.onclick = ()=>{
-    current++;
-    if(current<quizData.length){
-        showQuestion();
-    } else {
-        questionEl.textContent="Selamat! Kamu sudah menyelesaikan kuis.";
-        answersEl.innerHTML="";
-        nextBtn.style.display="none";
-        progressBar.style.width="100%";
-    }
+function updateProgress(){
+  const totalQuestions = categories.reduce((sum, cat)=>sum+cat.questions.length,0);
+  let answered = 0;
+  for(let i=0;i<currentCategory;i++){
+    answered += categories[i].questions.length;
+  }
+  answered += currentQuestion;
+  progressBar.style.width = (answered/totalQuestions*100)+"%";
+}
+
+function showEndMessage(){
+  quizContainer.innerHTML = "";
+  const card = document.createElement("div");
+  card.className="card";
+  const msg = [
+    "Wih gila, kelar juga! Kamu kuat banget nih nge-handle hewan-hewan 😆🦁",
+    "Yeay! Kamu sekarang official temen semua hewan di web ini 🐾😎",
+    "Huff… kuis kelar! Jangan sampe mimpiin lumba-lumba malem ini ya 😂🐬",
+    "Mantap bener! Sekarang bisa cerita ke temen kalo udah keliling bumi hewan tanpa capek 😏🌍",
+    "Keren! Kamu selamat… hewan-hewan juga lega nih 😜",
+    "Wih gokil! Singa pasti tepuk tangan kalo bisa 👏🦁",
+    "Asik! Kuis kelar, kamu resmi selamat dari jebakan hewan-hewan gila ini 😝"
+  ];
+  const h2 = document.createElement("h2");
+  h2.textContent = msg[Math.floor(Math.random()*msg.length)];
+  card.appendChild(h2);
+  quizContainer.appendChild(card);
+  progressBar.style.width="100%";
 }
 
 showQuestion();
