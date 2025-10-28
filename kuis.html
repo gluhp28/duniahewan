@@ -11,16 +11,16 @@ header { text-align:center; padding:1em; background-color: rgba(34,139,34,0.8); 
 nav a { margin:0 10px; color:white; text-decoration:none; font-weight:600; padding:8px 12px; border-radius:5px; transition:background 0.3s;}
 nav a:hover { background-color: rgba(255,255,255,0.3);}
 .container { max-width:900px; margin:20px auto; text-align:center; padding:20px; }
-.card { background:white; padding:20px; border-radius:15px; box-shadow:0 8px 16px rgba(0,0,0,0.2); margin-bottom:30px; }
+.category-card { display:inline-block; width:160px; height:120px; margin:10px; background:#4CAF50; color:white; border-radius:15px; box-shadow:0 6px 12px rgba(0,0,0,0.2); cursor:pointer; transition: transform 0.2s; padding:10px; vertical-align:top; }
+.category-card:hover { transform: scale(1.05); }
+.card { background:white; padding:20px; border-radius:15px; box-shadow:0 8px 16px rgba(0,0,0,0.2); margin-bottom:30px; text-align:left; }
 .card h2 { margin-bottom:10px; color:#2e8b57; }
 .btn { display:block; margin:10px auto; padding:12px 20px; border:none; border-radius:8px; font-weight:600; cursor:pointer; width:80%; transition: transform 0.2s; }
 .btn:hover { transform: scale(1.05);}
-.progress { height:20px; background:#eee; border-radius:10px; overflow:hidden; margin-bottom:20px; }
-.progress-bar { height:100%; background:#2e8b57; width:0%; transition:width 0.3s; border-radius:10px;}
-.correct { background-color: #4CAF50 !important; color:white;}
-.wrong { background-color: #f44336 !important; color:white;}
 .next-btn { display:block; margin:15px auto; padding:10px 20px; background:#2e8b57; color:white; border:none; border-radius:8px; font-weight:600; cursor:pointer; transition: transform 0.2s; }
 .next-btn:hover { transform: scale(1.05); background:#246b45; }
+.progress { height:20px; background:#eee; border-radius:10px; overflow:hidden; margin-bottom:20px; }
+.progress-bar { height:100%; background:#2e8b57; width:0%; transition:width 0.3s; border-radius:10px;}
 </style>
 </head>
 <body>
@@ -37,11 +37,17 @@ nav a:hover { background-color: rgba(255,255,255,0.3);}
 <a href="kuis.html">Kuis</a>
 </nav>
 </header>
-<section class="container">
+<section class="container" id="category-container">
+<h2>Pilih Kategori Kuis</h2>
+<div class="category-card" data-cat="0">Darat / Savana</div>
+<div class="category-card" data-cat="1">Laut</div>
+<div class="category-card" data-cat="2">Udara</div>
+<div class="category-card" data-cat="3">Hutan Tropis</div>
+<div class="category-card" data-cat="4">Kutub</div>
+</section>
+
+<section class="container" id="quiz-container" style="display:none;">
 <div class="progress"><div class="progress-bar" id="progress-bar"></div></div>
-
-<div id="quiz-container"></div>
-
 </section>
 
 <script>
@@ -83,14 +89,25 @@ const categories = [
   ]}
 ];
 
-let currentCategory = 0;
+let currentCategory = null;
 let currentQuestion = 0;
 
+const categoryContainer = document.getElementById("category-container");
 const quizContainer = document.getElementById("quiz-container");
 const progressBar = document.getElementById("progress-bar");
 
+categoryContainer.querySelectorAll(".category-card").forEach(card=>{
+  card.addEventListener("click",()=>{
+    currentCategory = parseInt(card.getAttribute("data-cat"));
+    currentQuestion = 0;
+    categoryContainer.style.display="none";
+    quizContainer.style.display="block";
+    showQuestion();
+  });
+});
+
 function showQuestion(){
-  quizContainer.innerHTML = "";
+  quizContainer.innerHTML = '<div class="progress"><div class="progress-bar" id="progress-bar"></div></div>';
   const category = categories[currentCategory];
   const questionObj = category.questions[currentQuestion];
 
@@ -110,78 +127,4 @@ function showQuestion(){
     const btn = document.createElement("button");
     btn.className="btn";
     btn.textContent=ans;
-    btn.onclick = () => checkAnswer(btn, ans, questionObj.correct);
-    answersDiv.appendChild(btn);
-  });
-  card.appendChild(answersDiv);
-
-  const nextBtn = document.createElement("button");
-  nextBtn.className="next-btn";
-  nextBtn.textContent="Next";
-  nextBtn.style.display="none";
-  nextBtn.onclick = ()=>{
-    currentQuestion++;
-    if(currentQuestion >= category.questions.length){
-      currentCategory++;
-      currentQuestion=0;
-      if(currentCategory >= categories.length){
-        showEndMessage();
-        return;
-      }
-    }
-    showQuestion();
-  }
-  card.appendChild(nextBtn);
-
-  quizContainer.appendChild(card);
-
-  updateProgress();
-}
-
-function checkAnswer(btn, ans, correct){
-  const allBtns = btn.parentElement.querySelectorAll("button");
-  allBtns.forEach(b=>b.disabled=true);
-  if(ans===correct){
-    btn.classList.add("correct");
-  } else {
-    btn.classList.add("wrong");
-    const correctBtn = Array.from(allBtns).find(b=>b.textContent===correct);
-    if(correctBtn) correctBtn.classList.add("correct");
-  }
-  btn.parentElement.nextElementSibling.style.display="block";
-}
-
-function updateProgress(){
-  const totalQuestions = categories.reduce((sum, cat)=>sum+cat.questions.length,0);
-  let answered = 0;
-  for(let i=0;i<currentCategory;i++){
-    answered += categories[i].questions.length;
-  }
-  answered += currentQuestion;
-  progressBar.style.width = (answered/totalQuestions*100)+"%";
-}
-
-function showEndMessage(){
-  quizContainer.innerHTML = "";
-  const card = document.createElement("div");
-  card.className="card";
-  const msg = [
-    "Wih gila, kelar juga! Kamu kuat banget nih nge-handle hewan-hewan 😆🦁",
-    "Yeay! Kamu sekarang official temen semua hewan di web ini 🐾😎",
-    "Huff… kuis kelar! Jangan sampe mimpiin lumba-lumba malem ini ya 😂🐬",
-    "Mantap bener! Sekarang bisa cerita ke temen kalo udah keliling bumi hewan tanpa capek 😏🌍",
-    "Keren! Kamu selamat… hewan-hewan juga lega nih 😜",
-    "Wih gokil! Singa pasti tepuk tangan kalo bisa 👏🦁",
-    "Asik! Kuis kelar, kamu resmi selamat dari jebakan hewan-hewan gila ini 😝"
-  ];
-  const h2 = document.createElement("h2");
-  h2.textContent = msg[Math.floor(Math.random()*msg.length)];
-  card.appendChild(h2);
-  quizContainer.appendChild(card);
-  progressBar.style.width="100%";
-}
-
-showQuestion();
-</script>
-</body>
-</html>
+    btn.onclick = () => checkAnswer(btn, ans, questionObj
