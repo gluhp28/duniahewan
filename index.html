@@ -123,5 +123,15 @@ nav a:active { transform: scale(0.95); }
     <p>Website ini dibuat untuk mengenalkan keanekaragaman dunia hewan dengan cara yang menyenangkan dan edukatif. Jelajahi darat, laut, udara, hutan tropis, hingga kutub melalui foto, fakta, dan kuis interaktif!</p>
     <iframe src="https://open.spotify.com/embed/track/7yq4Qj7cqayVTp3FF9CWbm" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
 </section>
+    <script>
+window.addEventListener('scroll', function() {
+  const header = document.querySelector('header');
+  if (window.scrollY > 50) { // scroll lebih dari 50px
+    header.classList.add('shrink');
+  } else {
+    header.classList.remove('shrink');
+  }
+});
+    </script>
 </body>
 </html>
