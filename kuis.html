@@ -37,9 +37,10 @@ nav a:hover { background-color: rgba(255,255,255,0.3);}
 <a href="kuis.html">Kuis</a>
 </nav>
 </header>
+
 <section class="container" id="category-container">
 <h2>Pilih Kategori Kuis</h2>
-<div class="category-card" data-cat="0">Darat / Savana</div>
+<div class="category-card" data-cat="0">Darat</div>
 <div class="category-card" data-cat="1">Laut</div>
 <div class="category-card" data-cat="2">Udara</div>
 <div class="category-card" data-cat="3">Hutan Tropis</div>
@@ -127,4 +128,78 @@ function showQuestion(){
     const btn = document.createElement("button");
     btn.className="btn";
     btn.textContent=ans;
-    btn.onclick = () => checkAnswer(btn, ans, questionObj
+    btn.onclick = () => checkAnswer(btn, ans, questionObj.correct);
+    answersDiv.appendChild(btn);
+  });
+  card.appendChild(answersDiv);
+
+  const nextBtn = document.createElement("button");
+  nextBtn.className="next-btn";
+  nextBtn.textContent = currentQuestion < category.questions.length-1 ? "Next" : "Selesai";
+  nextBtn.style.display="none";
+  nextBtn.onclick = ()=>{
+    currentQuestion++;
+    if(currentQuestion >= category.questions.length){
+      showEndMessage();
+      return;
+    }
+    showQuestion();
+  }
+  card.appendChild(nextBtn);
+
+  quizContainer.appendChild(card);
+
+  updateProgress();
+}
+
+function checkAnswer(btn, ans, correct){
+  const allBtns = btn.parentElement.querySelectorAll("button");
+  allBtns.forEach(b=>b.disabled=true);
+  if(ans===correct){
+    btn.classList.add("correct");
+  } else {
+    btn.classList.add("wrong");
+    const correctBtn = Array.from(allBtns).find(b=>b.textContent===correct);
+    if(correctBtn) correctBtn.classList.add("correct");
+  }
+  btn.parentElement.nextElementSibling.style.display="block";
+}
+
+function updateProgress(){
+  const category = categories[currentCategory];
+  const totalQuestions = category.questions.length;
+  progressBar.style.width = ((currentQuestion)/totalQuestions*100)+"%";
+}
+
+function showEndMessage(){
+  quizContainer.innerHTML = "";
+  const card = document.createElement("div");
+  card.className="card";
+  const msg = [
+    "Wih gila, kelar juga! Kamu kuat banget nih nge-handle hewan-hewan 😆🦁",
+    "Yeay! Kamu sekarang official temen semua hewan di web ini 🐾😎",
+    "Huff… kuis kelar! Jangan sampe mimpiin lumba-lumba malem ini ya 😂🐬",
+    "Mantap bener! Sekarang bisa cerita ke temen kalo udah keliling bumi hewan tanpa capek 😏🌍",
+    "Keren! Kamu selamat… hewan-hewan juga lega nih 😜",
+    "Wih gokil! Singa pasti tepuk tangan kalo bisa 👏🦁",
+    "Asik! Kuis kelar, kamu resmi selamat dari jebakan hewan-hewan gila ini 😝"
+  ];
+  const h2 = document.createElement("h2");
+  h2.textContent = msg[Math.floor(Math.random()*msg.length)];
+  card.appendChild(h2);
+
+  const backBtn = document.createElement("button");
+  backBtn.className="next-btn";
+  backBtn.textContent="Pilih Kategori Lagi";
+  backBtn.onclick=()=>{
+    categoryContainer.style.display="block";
+    quizContainer.style.display="none";
+  }
+  card.appendChild(backBtn);
+
+  quizContainer.appendChild(card);
+  progressBar.style.width="100%";
+}
+</script>
+</body>
+</html>
