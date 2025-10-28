@@ -12,7 +12,7 @@ nav a { margin:0 10px; color:white; text-decoration:none; font-weight:600; paddi
 nav a:hover { background-color: rgba(255,255,255,0.3);}
 .container { max-width:900px; margin:20px auto; padding:20px; }
 .category-buttons { text-align:center; margin-bottom:20px; }
-.category-buttons button { margin:5px; padding:10px 20px; border:none; border-radius:50px; background:#2e8b57; color:white; font-weight:600; cursor:pointer; transition: transform 0.2s, background 0.2s;}
+.category-buttons button { display:block; width:90%; max-width:400px; margin:10px auto; padding:15px; border:none; border-radius:50px; background:#2e8b57; color:white; font-weight:600; cursor:pointer; transition: transform 0.2s, background 0.2s;}
 .category-buttons button:hover { background:#246b45; transform:scale(1.05); }
 .question-box { background: rgba(255,255,255,0.9); padding:20px; border-radius:15px; margin-bottom:20px; box-shadow:0 4px 8px rgba(0,0,0,0.1); }
 .question-box h3 { color:#2e8b57; }
@@ -66,15 +66,15 @@ nav a:hover {
   box-shadow: 0 4px 8px rgba(0,0,0,0.15);
 }
 nav a:active { transform: scale(0.95); }
-    </style>
+</style>
 
 <div class="container">
-  <div class="category-buttons">
-    <button onclick="startQuiz('darat')" style="width:100%; border-radius:15px; padding:15px; font-size:18px;">Darat</button>
-    <button onclick="startQuiz('laut')" style="width:100%; border-radius:15px; padding:15px; font-size:18px;">Laut</button>
-    <button onclick="startQuiz('udara')" style="width:100%; border-radius:15px; padding:15px; font-size:18px;">Udara</button>
-    <button onclick="startQuiz('hutantropis')" style="width:100%; border-radius:15px; padding:15px; font-size:18px;">Hutan Tropis</button>
-    <button onclick="startQuiz('kutub')" style="width:100%; border-radius:15px; padding:15px; font-size:18px;">Kutub</button>
+  <div id="categoryButtons" class="category-buttons">
+    <button onclick="startQuiz('darat')">Darat</button>
+    <button onclick="startQuiz('laut')">Laut</button>
+    <button onclick="startQuiz('udara')">Udara</button>
+    <button onclick="startQuiz('hutantropis')">Hutan Tropis</button>
+    <button onclick="startQuiz('kutub')">Kutub</button>
   </div>
   <div id="quiz-area"></div>
   <div id="end-msg" class="end-msg"></div>
@@ -126,6 +126,7 @@ function startQuiz(category){
   currentQuiz = quizzes[category];
   currentIndex = 0;
   document.getElementById('end-msg').innerHTML = '';
+  document.getElementById('categoryButtons').style.display = 'none'; // sembunyikan kartu kategori
   showQuestion();
 }
 
