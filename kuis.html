@@ -69,6 +69,7 @@ nav a:active { transform: scale(0.95); }
 </style>
 
 <div class="container">
+  <!-- Kartu kategori -->
   <div id="categoryButtons" class="category-buttons">
     <button onclick="startQuiz('darat')">Darat</button>
     <button onclick="startQuiz('laut')">Laut</button>
@@ -76,8 +77,15 @@ nav a:active { transform: scale(0.95); }
     <button onclick="startQuiz('hutantropis')">Hutan Tropis</button>
     <button onclick="startQuiz('kutub')">Kutub</button>
   </div>
+
+  <!-- Area kuis -->
   <div id="quiz-area"></div>
+
+  <!-- Pesan selesai kuis -->
   <div id="end-msg" class="end-msg"></div>
+
+  <!-- Tombol kembali ke kategori -->
+  <button id="retry-btn" onclick="retryQuiz()">Pilih Kategori Lain</button>
 </div>
 
 <script>
