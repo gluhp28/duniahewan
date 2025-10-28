@@ -134,9 +134,10 @@ function startQuiz(category){
   currentQuiz = quizzes[category];
   currentIndex = 0;
   document.getElementById('end-msg').innerHTML = '';
-  document.getElementById('categoryButtons').style.display = 'none'; // sembunyikan kartu kategori
+  document.getElementById('categoryButtons').style.display = 'none';
+  document.getElementById('retry-btn').style.display = 'none';
   showQuestion();
-}
+        }
 
 function showQuestion(){
   if(currentIndex >= currentQuiz.length){
@@ -166,6 +167,12 @@ function checkAnswer(index){
   currentIndex++;
   setTimeout(showQuestion, 1500);
 }
+    function retryQuiz(){
+  document.getElementById('categoryButtons').style.display = 'block'; // tampilkan kategori
+  document.getElementById('quiz-area').innerHTML = ''; // bersihkan area kuis
+  document.getElementById('end-msg').innerText = ''; 
+  document.getElementById('retry-btn').style.display = 'none'; // sembunyikan tombol
+    }
 </script>
 </body>
 </html>
