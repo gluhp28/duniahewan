@@ -6,23 +6,20 @@
 <title>Kuis - Dunia Hewan</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 <style>
-body { font-family: 'Poppins', sans-serif; margin:0; background:#d0f0c0; color:#333; }
-header { text-align:center; padding:1em; background-color: rgba(34,139,34,0.8); color:white; }
+body { font-family: 'Poppins', sans-serif; margin:0; background: linear-gradient(to bottom, #d0f0c0, #a3d9a5); color:#333; }
+header { text-align:center; padding:1em; background: rgba(34,139,34,0.8); color:white; position: sticky; top:0; z-index:1000; }
 nav a { margin:0 10px; color:white; text-decoration:none; font-weight:600; padding:8px 12px; border-radius:5px; transition:background 0.3s;}
 nav a:hover { background-color: rgba(255,255,255,0.3);}
-.container { max-width:900px; margin:20px auto; text-align:center; padding:20px; }
-.category-card { display:inline-block; width:160px; height:120px; margin:10px; background:#4CAF50; color:white; border-radius:15px; box-shadow:0 6px 12px rgba(0,0,0,0.2); cursor:pointer; transition: transform 0.2s; padding:10px; vertical-align:top; }
-.category-card:hover { transform: scale(1.05); }
-.card { background:white; padding:20px; border-radius:15px; box-shadow:0 8px 16px rgba(0,0,0,0.2); margin-bottom:30px; text-align:left; }
-.card h2 { margin-bottom:10px; color:#2e8b57; }
-.btn { display:block; margin:10px auto; padding:12px 20px; border:none; border-radius:8px; font-weight:600; cursor:pointer; width:80%; transition: transform 0.2s; }
-.btn:hover { transform: scale(1.05);}
-.next-btn { display:block; margin:15px auto; padding:10px 20px; background:#2e8b57; color:white; border:none; border-radius:8px; font-weight:600; cursor:pointer; transition: transform 0.2s; }
-.next-btn:hover { transform: scale(1.05); background:#246b45; }
-.progress { height:20px; background:#eee; border-radius:10px; overflow:hidden; margin-bottom:20px; }
-.progress-bar { height:100%; background:#2e8b57; width:0%; transition:width 0.3s; border-radius:10px;}
-.correct { background-color: #4CAF50 !important; color:white; }
-.wrong { background-color: #f44336 !important; color:white; }
+.container { max-width:900px; margin:20px auto; padding:20px; }
+.category-buttons { text-align:center; margin-bottom:20px; }
+.category-buttons button { margin:5px; padding:10px 20px; border:none; border-radius:50px; background:#2e8b57; color:white; font-weight:600; cursor:pointer; transition: transform 0.2s, background 0.2s;}
+.category-buttons button:hover { background:#246b45; transform:scale(1.05); }
+.question-box { background: rgba(255,255,255,0.9); padding:20px; border-radius:15px; margin-bottom:20px; box-shadow:0 4px 8px rgba(0,0,0,0.1); }
+.question-box h3 { color:#2e8b57; }
+.question-box button { display:block; width:100%; margin:10px 0; padding:10px; font-size:16px; border:none; border-radius:8px; background:#2e8b57; color:white; cursor:pointer; transition: background 0.3s;}
+.question-box button:hover { background:#246b45; }
+.feedback { margin-top:10px; font-weight:bold; }
+.end-msg { text-align:center; font-size:18px; color:#ff6600; margin-top:20px; font-weight:600;}
 </style>
 </head>
 <body>
@@ -69,169 +66,96 @@ nav a:hover {
   box-shadow: 0 4px 8px rgba(0,0,0,0.15);
 }
 nav a:active { transform: scale(0.95); }
-</style>
+    </style>
 
-<section class="container" id="category-container">
-<h2>Pilih Kategori Kuis</h2>
-<div class="category-card" data-cat="0">Darat</div>
-<div class="category-card" data-cat="1">Laut</div>
-<div class="category-card" data-cat="2">Udara</div>
-<div class="category-card" data-cat="3">Hutan Tropis</div>
-<div class="category-card" data-cat="4">Kutub</div>
-</section>
-
-<section class="container" id="quiz-container" style="display:none;">
-<div class="progress"><div class="progress-bar" id="progress-bar"></div></div>
-</section>
+<div class="container">
+  <div class="category-buttons">
+    <button onclick="startQuiz('darat')">Darat</button>
+    <button onclick="startQuiz('laut')">Laut</button>
+    <button onclick="startQuiz('udara')">Udara</button>
+    <button onclick="startQuiz('hutantropis')">Hutan Tropis</button>
+    <button onclick="startQuiz('kutub')">Kutub</button>
+  </div>
+  <div id="quiz-area"></div>
+  <div id="end-msg" class="end-msg"></div>
+</div>
 
 <script>
-const categories = [
-  {name:"Darat / Savana", questions:[
-    {q:"Hewan mana yang dikenal sebagai 'Raja Hutan'?", a:["Singa","Zebra","Gajah"], correct:"Singa"},
-    {q:"Hewan darat terbesar dengan belalai panjang?", a:["Gajah","Harimau","Jerapah"], correct:"Gajah"},
-    {q:"Hewan pemakan bambu yang terkenal di Asia?", a:["Panda","Singa","Zebra"], correct:"Panda"},
-    {q:"Hewan dengan leher terpanjang di dunia?", a:["Jerapah","Singa","Zebra"], correct:"Jerapah"},
-    {q:"Hewan cepat di savana yang memiliki corak belang?", a:["Zebra","Singa","Kuda Nil"], correct:"Zebra"}
-  ]},
-  {name:"Laut", questions:[
-    {q:"Ikan badut hidup bersimbiosis dengan?", a:["Anemon laut","Karang","Rumput Laut"], correct:"Anemon laut"},
-    {q:"Mamalia laut cerdas dan sosial?", a:["Lumba-lumba","Paus Biru","Kura-kura Laut"], correct:"Lumba-lumba"},
-    {q:"Hewan laut terbesar di bumi adalah?", a:["Paus Biru","Lumba-lumba","Kura-kura Laut"], correct:"Paus Biru"},
-    {q:"Hewan laut yang bisa tidur sebagian otaknya tetap aktif?", a:["Anjing Laut","Penguin","Singa Laut"], correct:"Anjing Laut"},
-    {q:"Hewan laut dengan cangkang keras dan bisa berenang jauh?", a:["Kura Kura Laut","Ikan Badut","Lumba-lumba"], correct:"Kura Kura Laut"}
-  ]},
-  {name:"Udara", questions:[
-    {q:"Burung apa yang bisa berputar kepala sampai 270°?", a:["Elang","Burung Hantu","Merpati"], correct:"Burung Hantu"},
-    {q:"Burung tropis dengan bulu warna-warni indah?", a:["Burung Cendrawasih","Merpati","Burung Hantu"], correct:"Burung Cendrawasih"},
-    {q:"Burung cepat yang sering menjadi simbol keberanian?", a:["Elang","Merpati","Burung Hantu"], correct:"Elang"},
-    {q:"Burung yang identik dengan perdamaian?", a:["Merpati","Burung Hantu","Elang"], correct:"Merpati"},
-    {q:"Burung malam yang berburu saat gelap?", a:["Burung Hantu","Elang","Merpati"], correct:"Burung Hantu"}
-  ]},
-  {name:"Hutan Tropis", questions:[
-    {q:"Primata besar yang hidup di pohon hutan hujan tropis?", a:["Orang Utan","Harimau","Gajah"], correct:"Orang Utan"},
-    {q:"Hewan bertanduk di hutan tropis?", a:["Rusa","Harimau","Gajah"], correct:"Rusa"},
-    {q:"Hewan pemakan daun yang besar di hutan tropis?", a:["Gajah","Orang Utan","Harimau"], correct:"Gajah"},
-    {q:"Hewan karnivora yang berbulu oranye dengan garis hitam?", a:["Harimau","Orang Utan","Rusa"], correct:"Harimau"},
-    {q:"Hewan dengan sayap tapi hidup di hutan tropis?", a:["Burung Cendrawasih","Kupu-Kupu","Orang Utan"], correct:"Burung Cendrawasih"}
-  ]},
-  {name:"Kutub", questions:[
-    {q:"Hewan yang hidup di Kutub Utara dan berbulu putih tebal?", a:["Beruang Kutub","Singa","Gajah"], correct:"Beruang Kutub"},
-    {q:"Hewan laut yang sering terlihat seperti memakai jas hitam-putih?", a:["Penguin","Paus Biru","Lumba-lumba"], correct:"Penguin"},
-    {q:"Mamalia laut terbesar di kutub?", a:["Paus Biru","Penguin","Anjing Laut"], correct:"Paus Biru"},
-    {q:"Hewan pemangsa puncak di Kutub Utara?", a:["Beruang Kutub","Penguin","Anjing Laut"], correct:"Beruang Kutub"},
-    {q:"Hewan herbivora dengan corak belang yang hidup di Kutub Selatan?", a:["Tidak ada","Zebra","Singa"], correct:"Tidak ada"}
-  ]}
-];
+const quizzes = {
+  darat: [
+    {q:"Singa adalah hewan...", a:["Karnivora","Herbivora","Omnivora"], correct:0},
+    {q:"Gajah memiliki belalai untuk...", a:["Makan","Menghirup udara & minum","Melompat"], correct:1},
+    {q:"Harimau hidup di...", a:["Padang pasir","Hutan","Kutub"], correct:1},
+    {q:"Zebra terkenal karena...", a:["Corak garis tubuh","Ukuran tubuh","Bunyi khas"], correct:0},
+    {q:"Orangutan berasal dari...", a:["Afrika","Asia Tenggara","Amerika"], correct:1},
+  ],
+  laut: [
+    {q:"Lumba-lumba termasuk...", a:["Mamalia","Ikan","Reptil"], correct:0},
+    {q:"Paus biru adalah...", a:["Hewan terkecil","Hewan terbesar","Hewan tercepat"], correct:1},
+    {q:"Kura-kura laut kembali ke pantai untuk...", a:["Tidur","Bertelur","Berenang"], correct:1},
+    {q:"Ikan badut hidup di...", a:["Air tawar","Anemon laut","Sungai"], correct:1},
+    {q:"Anjing laut terkenal karena...", a:["Bisa terbang","Lincah di air","Menyanyi"], correct:1},
+  ],
+  udara: [
+    {q:"Elang termasuk...", a:["Burung pemangsa","Burung merpati","Burung hantu"], correct:0},
+    {q:"Burung hantu aktif saat...", a:["Siang","Malam","Mendung"], correct:1},
+    {q:"Burung cendrawasih terkenal karena...", a:["Suara merdu","Bulu indah","Badan besar"], correct:1},
+    {q:"Merpati sering digunakan untuk...", a:["Olahraga","Pengiriman pesan","Hiburan"], correct:1},
+    {q:"Burung yang bisa meniru suara manusia...", a:["Kakatua","Elang","Gagak"], correct:0},
+  ],
+  hutantropis: [
+    {q:"Hewan hutan tropis biasanya...", a:["Hidup di salju","Hidup di hutan","Hidup di gurun"], correct:1},
+    {q:"Orangutan termasuk...", a:["Primata","Kucing","Reptil"], correct:0},
+    {q:"Hewan yang terkenal memanjat pohon...", a:["Gajah","Kucing","Orangutan"], correct:2},
+    {q:"Hewan nokturnal artinya...", a:["Aktif siang","Aktif malam","Tidak aktif"], correct:1},
+    {q:"Kupu-kupu termasuk...", a:["Serangga","Burung","Mamalia"], correct:0},
+  ],
+  kutub: [
+    {q:"Penguin hidup di...", a:["Kutub Utara","Kutub Selatan","Hutan tropis"], correct:1},
+    {q:"Beruang kutub memiliki bulu...", a:["Tipis","Tebal","Transparan"], correct:1},
+    {q:"Hewan laut di kutub yang besar...", a:["Lumba-lumba","Paus biru","Anjing laut"], correct:2},
+    {q:"Hewan yang suka berseluncur di es...", a:["Penguin","Singa","Harimau"], correct:0},
+    {q:"Hewan yang berburu di salju...", a:["Singa","Beruang kutub","Zebra"], correct:1},
+  ]
+};
 
-let currentCategory = null;
-let currentQuestion = 0;
+let currentQuiz = [];
+let currentIndex = 0;
 
-const categoryContainer = document.getElementById("category-container");
-const quizContainer = document.getElementById("quiz-container");
-const progressBar = document.getElementById("progress-bar");
-
-categoryContainer.querySelectorAll(".category-card").forEach(card=>{
-  card.addEventListener("click",()=>{
-    currentCategory = parseInt(card.getAttribute("data-cat"));
-    currentQuestion = 0;
-    categoryContainer.style.display="none";
-    quizContainer.style.display="block";
-    showQuestion();
-  });
-});
+function startQuiz(category){
+  currentQuiz = quizzes[category];
+  currentIndex = 0;
+  document.getElementById('end-msg').innerHTML = '';
+  showQuestion();
+}
 
 function showQuestion(){
-  quizContainer.innerHTML = '<div class="progress"><div class="progress-bar" id="progress-bar"></div></div>';
-  const category = categories[currentCategory];
-  const questionObj = category.questions[currentQuestion];
-
-  const card = document.createElement("div");
-  card.className = "card";
-
-  const h2 = document.createElement("h2");
-  h2.textContent = `${category.name} - Soal ${currentQuestion+1}`;
-  card.appendChild(h2);
-
-  const p = document.createElement("p");
-  p.textContent = questionObj.q;
-  card.appendChild(p);
-
-  const answersDiv = document.createElement("div");
-  questionObj.a.forEach(ans=>{
-    const btn = document.createElement("button");
-    btn.className="btn";
-    btn.textContent=ans;
-    btn.onclick = () => checkAnswer(btn, ans, questionObj.correct);
-    answersDiv.appendChild(btn);
-  });
-  card.appendChild(answersDiv);
-
-  const nextBtn = document.createElement("button");
-  nextBtn.className="next-btn";
-  nextBtn.textContent = currentQuestion < category.questions.length-1 ? "Next" : "Selesai";
-  nextBtn.style.display="none";
-  nextBtn.onclick = ()=>{
-    currentQuestion++;
-    if(currentQuestion >= category.questions.length){
-      showEndMessage();
-      return;
-    }
-    showQuestion();
+  if(currentIndex >= currentQuiz.length){
+    document.getElementById('quiz-area').innerHTML = '';
+    document.getElementById('end-msg').innerText = "Yeay, kamu udah selesai kuis! Kamu keren banget 😎🎉";
+    return;
   }
-  card.appendChild(nextBtn);
-
-  quizContainer.appendChild(card);
-
-  updateProgress();
+  const q = currentQuiz[currentIndex];
+  const html = `<div class="question-box">
+    <h3>${q.q}</h3>
+    ${q.a.map((ans,i)=>`<button onclick="checkAnswer(${i})">${ans}</button>`).join('')}
+    <div class="feedback" id="feedback"></div>
+  </div>`;
+  document.getElementById('quiz-area').innerHTML = html;
 }
 
-function checkAnswer(btn, ans, correct){
-  const allBtns = btn.parentElement.querySelectorAll("button");
-  allBtns.forEach(b=>b.disabled=true);
-  if(ans===correct){
-    btn.classList.add("correct");
+function checkAnswer(index){
+  const q = currentQuiz[currentIndex];
+  const feedback = document.getElementById('feedback');
+  if(index === q.correct){
+    feedback.innerText = "Jawaban benar! 👍";
+    feedback.style.color = "green";
   } else {
-    btn.classList.add("wrong");
-    const correctBtn = Array.from(allBtns).find(b=>b.textContent===correct);
-    if(correctBtn) correctBtn.classList.add("correct");
+    feedback.innerText = `Salah! Jawaban yang benar: ${q.a[q.correct]}`;
+    feedback.style.color = "red";
   }
-  btn.parentElement.nextElementSibling.style.display="block";
-}
-
-function updateProgress(){
-  const category = categories[currentCategory];
-  const totalQuestions = category.questions.length;
-  progressBar.style.width = ((currentQuestion)/totalQuestions*100)+"%";
-}
-
-function showEndMessage(){
-  quizContainer.innerHTML = "";
-  const card = document.createElement("div");
-  card.className="card";
-  const msg = [
-    "Wih gila, kelar juga! Kamu kuat banget nih nge-handle hewan-hewan 😆🦁",
-    "Yeay! Kamu sekarang official temen semua hewan di web ini 🐾😎",
-    "Huff… kuis kelar! Jangan sampe mimpiin lumba-lumba malem ini ya 😂🐬",
-    "Mantap bener! Sekarang bisa cerita ke temen kalo udah keliling bumi hewan tanpa capek 😏🌍",
-    "Keren! Kamu selamat… hewan-hewan juga lega nih 😜",
-    "Wih gokil! Singa pasti tepuk tangan kalo bisa 👏🦁",
-    "Asik! Kuis kelar, kamu resmi selamat dari jebakan hewan-hewan gila ini 😝"
-  ];
-  const h2 = document.createElement("h2");
-  h2.textContent = msg[Math.floor(Math.random()*msg.length)];
-  card.appendChild(h2);
-
-  const backBtn = document.createElement("button");
-  backBtn.className="next-btn";
-  backBtn.textContent="Pilih Kategori Lagi";
-  backBtn.onclick=()=>{
-    categoryContainer.style.display="block";
-    quizContainer.style.display="none";
-  }
-  card.appendChild(backBtn);
-
-  quizContainer.appendChild(card);
-  progressBar.style.width="100%";
+  currentIndex++;
+  setTimeout(showQuestion, 1500);
 }
 </script>
 </body>
