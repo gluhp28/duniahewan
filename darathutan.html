@@ -3,12 +3,28 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>darathutan - Dunia Hewan</title>
-<link rel="stylesheet" href="style.css">
+<title>Kategori Darat - Dunia Hewan</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<style>
+body { margin:0; font-family: 'Poppins', sans-serif; background: linear-gradient(to bottom, #a3d9a5, #d9c8a3); color:#333; }
+header { text-align:center; padding:1em; background-color: rgba(34,139,34,0.8); color:white; }
+nav a { margin:0 10px; color:white; text-decoration:none; font-weight:600; padding:8px 12px; border-radius:5px; transition:background 0.3s;}
+nav a:hover { background-color: rgba(255,255,255,0.3);}
+.container { max-width:1000px; margin:20px auto; padding:20px; }
+.grid { display:grid; grid-template-columns: repeat(auto-fit,minmax(200px,1fr)); gap:20px; }
+.card { background:white; border-radius:15px; overflow:hidden; box-shadow:0 6px 15px rgba(0,0,0,0.2); cursor:pointer; transition: transform 0.3s, box-shadow 0.3s; position:relative; }
+.card img { width:100%; display:block; transition: transform 0.3s; }
+.card:hover img { transform: scale(1.05); }
+.card h3 { margin:10px; text-align:center; color:#2e8b57; }
+.overlay { position:absolute; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7); color:white; padding:20px; box-sizing:border-box; opacity:0; transition: opacity 0.3s; overflow:auto; }
+.card.show .overlay { opacity:1; }
+.overlay h4 { margin-top:0; color:#ffd700; }
+.overlay p { margin:5px 0; line-height:1.4; }
+</style>
 </head>
 <body>
 <header>
-<h1>Dunia Hewan - darathutan</h1>
+<h1>Kategori Darat - Dunia Hewan</h1>
 <nav>
 <a href="index.html">Beranda</a>
 <a href="darathutan.html">Darat / Savana</a>
@@ -19,37 +35,67 @@
 <a href="faktamenarik.html">Fakta Menarik</a>
 <a href="kuis.html">Kuis</a>
 </nav>
-<section class="container">
-<div class="hewan">
-<h3>Singa</h3>
-<img src="https://github.com/gluhp28/foto-hewan/raw/main/singa.jpg" alt="Singa">
-<p><strong>Deskripsi:</strong> Singa adalah kucing besar yang dikenal sebagai “Raja Hutan”. Mereka hidup berkelompok dan biasanya berburu di malam hari.</p>
-<p><strong>Fakta Menarik:</strong> Auman singa dapat terdengar hingga 8 km jauhnya, digunakan untuk menandai wilayah dan berkomunikasi dengan anggota kelompok.</p>
+</header>
+
+<div class="container">
+  <div class="grid">
+    <!-- Singa -->
+    <div class="card" onclick="toggleOverlay(this)">
+      <img src="https://github.com/gluhp28/foto-hewan/raw/main/singa.jpg" alt="Singa">
+      <h3>Singa</h3>
+      <div class="overlay">
+        <h4>Singa</h4>
+        <p>Deskripsi: Singa dikenal sebagai 'Raja Hutan' dan hidup di savana Afrika.</p>
+        <p>Fakta menarik: Singa jantan bisa tidur hingga 20 jam sehari 😴</p>
+      </div>
+    </div>
+    <!-- Zebra -->
+    <div class="card" onclick="toggleOverlay(this)">
+      <img src="https://github.com/gluhp28/foto-hewan/raw/main/zebra.jpg" alt="Zebra">
+      <h3>Zebra</h3>
+      <div class="overlay">
+        <h4>Zebra</h4>
+        <p>Deskripsi: Zebra memiliki corak garis hitam-putih unik di setiap individu.</p>
+        <p>Fakta menarik: Corak garis membantu menyamarkan mereka dari predator.</p>
+      </div>
+    </div>
+    <!-- Gajah -->
+    <div class="card" onclick="toggleOverlay(this)">
+      <img src="https://github.com/gluhp28/foto-hewan/raw/main/gajah.jpg" alt="Gajah">
+      <h3>Gajah</h3>
+      <div class="overlay">
+        <h4>Gajah</h4>
+        <p>Deskripsi: Gajah adalah mamalia darat terbesar dengan belalai panjang.</p>
+        <p>Fakta menarik: Gajah bisa mengenali diri mereka di cermin 🪞</p>
+      </div>
+    </div>
+    <!-- Harimau -->
+    <div class="card" onclick="toggleOverlay(this)">
+      <img src="https://github.com/gluhp28/foto-hewan/raw/main/harimau.jpg" alt="Harimau">
+      <h3>Harimau</h3>
+      <div class="overlay">
+        <h4>Harimau</h4>
+        <p>Deskripsi: Harimau adalah kucing besar pemangsa yang berbulu oranye dengan garis hitam.</p>
+        <p>Fakta menarik: Harimau bisa berenang lebih baik dibanding kucing lainnya 🏊‍♂️</p>
+      </div>
+    </div>
+    <!-- Jerapah -->
+    <div class="card" onclick="toggleOverlay(this)">
+      <img src="https://github.com/gluhp28/foto-hewan/raw/main/jerapah.jpg" alt="Jerapah">
+      <h3>Jerapah</h3>
+      <div class="overlay">
+        <h4>Jerapah</h4>
+        <p>Deskripsi: Jerapah memiliki leher terpanjang di dunia dan tinggal di savana Afrika.</p>
+        <p>Fakta menarik: Lidah jerapah bisa mencapai 45 cm dan berwarna ungu 😋</p>
+      </div>
+    </div>
+  </div>
 </div>
-<div class="hewan">
-<h3>Zebra</h3>
-<img src="https://github.com/gluhp28/foto-hewan/raw/main/zebra.jpg" alt="Zebra">
-<p><strong>Deskripsi:</strong> Zebra adalah mamalia dengan garis hitam-putih unik di tubuhnya. Hidup di savana Afrika.</p>
-<p><strong>Fakta Menarik:</strong> Pola garis setiap zebra berbeda, mirip sidik jari manusia.</p>
-</div>
-<div class="hewan">
-<h3>Gajah</h3>
-<img src="https://github.com/gluhp28/foto-hewan/raw/main/gajah.jpg" alt="Gajah">
-<p><strong>Deskripsi:</strong> Gajah adalah mamalia darat terbesar dengan belalai panjang dan gading besar.</p>
-<p><strong>Fakta Menarik:</strong> Gajah bisa mendengar suara melalui getaran tanah dari jarak hingga 5 km.</p>
-</div>
-<div class="hewan">
-<h3>Jerapah</h3>
-<img src="https://github.com/gluhp28/foto-hewan/raw/main/jerapah.jpg" alt="Jerapah">
-<p><strong>Deskripsi:</strong> Jerapah adalah mamalia dengan leher terpanjang di dunia, hidup di savana.</p>
-<p><strong>Fakta Menarik:</strong> Hanya tidur sekitar 4–5 jam sehari.</p>
-</div>
-<div class="hewan">
-<h3>Harimau</h3>
-<img src="https://github.com/gluhp28/foto-hewan/raw/main/harimau.jpg" alt="Harimau">
-<p><strong>Deskripsi:</strong> Harimau adalah kucing besar dengan belang khas di tubuhnya, predator yang tangguh.</p>
-<p><strong>Fakta Menarik:</strong> Bisa berenang dengan baik dan sering ditemukan di habitat dekat air.</p>
-</div>
-</section>
+
+<script>
+function toggleOverlay(card){
+  card.classList.toggle("show");
+}
+</script>
 </body>
 </html>
