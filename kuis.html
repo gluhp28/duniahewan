@@ -130,6 +130,8 @@ const quizzes = {
 let currentQuiz = [];
 let currentIndex = 0;
 
+<script>
+// fungsi startQuiz()
 function startQuiz(category){
   currentQuiz = quizzes[category];
   currentIndex = 0;
@@ -137,12 +139,14 @@ function startQuiz(category){
   document.getElementById('categoryButtons').style.display = 'none';
   document.getElementById('retry-btn').style.display = 'none';
   showQuestion();
-        }
+}
 
+// fungsi showQuestion()
 function showQuestion(){
   if(currentIndex >= currentQuiz.length){
     document.getElementById('quiz-area').innerHTML = '';
     document.getElementById('end-msg').innerText = "Yeay, kamu udah selesai kuis! Kamu keren banget 😎🎉";
+    document.getElementById('retry-btn').style.display = 'block'; // tombol muncul
     return;
   }
   const q = currentQuiz[currentIndex];
@@ -154,6 +158,7 @@ function showQuestion(){
   document.getElementById('quiz-area').innerHTML = html;
 }
 
+// fungsi checkAnswer()
 function checkAnswer(index){
   const q = currentQuiz[currentIndex];
   const feedback = document.getElementById('feedback');
@@ -167,12 +172,14 @@ function checkAnswer(index){
   currentIndex++;
   setTimeout(showQuestion, 1500);
 }
-    function retryQuiz(){
-  document.getElementById('categoryButtons').style.display = 'block'; // tampilkan kategori
+
+// === letakkan fungsi retryQuiz() di sini ===
+function retryQuiz(){
+  document.getElementById('categoryButtons').style.display = 'block'; // tampilkan kategori lagi
   document.getElementById('quiz-area').innerHTML = ''; // bersihkan area kuis
-  document.getElementById('end-msg').innerText = ''; 
+  document.getElementById('end-msg').innerText = ''; // hapus pesan selesai
   document.getElementById('retry-btn').style.display = 'none'; // sembunyikan tombol
-    }
+}
 </script>
 </body>
 </html>
