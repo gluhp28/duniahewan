@@ -4,12 +4,6 @@ body {
     background: linear-gradient(to bottom, #d0f0c0, #a3d9a5);
     color: #333;
 }
-nav a {
-    margin: 0 15px;
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-}
 nav a:hover {
     text-decoration: underline;
 }
