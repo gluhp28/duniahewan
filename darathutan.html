@@ -16,10 +16,9 @@ nav a:hover { background-color: rgba(255,255,255,0.3);}
 .card img { width:100%; display:block; transition: transform 0.3s; }
 .card:hover img { transform: scale(1.05); }
 .card h3 { margin:10px; text-align:center; color:#2e8b57; }
-.overlay { position:absolute; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7); color:white; padding:20px; box-sizing:border-box; opacity:0; transition: opacity 0.3s; overflow:auto; }
-.card.show .overlay { opacity:1; }
-.overlay h4 { margin-top:0; color:#ffd700; }
-.overlay p { margin:5px 0; line-height:1.4; }
+.details { max-height:0; overflow:hidden; transition:max-height 0.4s ease; padding:0 10px; }
+.card.expanded .details { max-height:500px; margin-bottom:10px; }
+.details p { margin:5px 0; line-height:1.4; }
 </style>
 </head>
 <body>
@@ -40,61 +39,61 @@ nav a:hover { background-color: rgba(255,255,255,0.3);}
 <div class="container">
   <div class="grid">
     <!-- Singa -->
-    <div class="card" onclick="toggleOverlay(this)">
+    <div class="card" onclick="toggleCard(this)">
       <img src="https://github.com/gluhp28/foto-hewan/raw/main/singa.jpg" alt="Singa">
       <h3>Singa</h3>
-      <div class="overlay">
-        <h4>Singa</h4>
-        <p>Deskripsi: Singa dikenal sebagai 'Raja Hutan' dan hidup di savana Afrika.</p>
-        <p>Fakta menarik: Singa jantan bisa tidur hingga 20 jam sehari 😴</p>
+      <div class="details">
+        <p><strong>Deskripsi:</strong> Singa dikenal sebagai 'Raja Hutan' dan hidup di savana Afrika.</p>
+        <p><strong>Fakta menarik:</strong> Singa jantan bisa tidur hingga 20 jam sehari 😴</p>
       </div>
     </div>
     <!-- Zebra -->
-    <div class="card" onclick="toggleOverlay(this)">
+    <div class="card" onclick="toggleCard(this)">
       <img src="https://github.com/gluhp28/foto-hewan/raw/main/zebra.jpg" alt="Zebra">
       <h3>Zebra</h3>
-      <div class="overlay">
-        <h4>Zebra</h4>
-        <p>Deskripsi: Zebra memiliki corak garis hitam-putih unik di setiap individu.</p>
-        <p>Fakta menarik: Corak garis membantu menyamarkan mereka dari predator.</p>
+      <div class="details">
+        <p><strong>Deskripsi:</strong> Zebra memiliki corak garis hitam-putih unik di setiap individu.</p>
+        <p><strong>Fakta menarik:</strong> Corak garis membantu menyamarkan mereka dari predator.</p>
       </div>
     </div>
     <!-- Gajah -->
-    <div class="card" onclick="toggleOverlay(this)">
+    <div class="card" onclick="toggleCard(this)">
       <img src="https://github.com/gluhp28/foto-hewan/raw/main/gajah.jpg" alt="Gajah">
       <h3>Gajah</h3>
-      <div class="overlay">
-        <h4>Gajah</h4>
-        <p>Deskripsi: Gajah adalah mamalia darat terbesar dengan belalai panjang.</p>
-        <p>Fakta menarik: Gajah bisa mengenali diri mereka di cermin 🪞</p>
+      <div class="details">
+        <p><strong>Deskripsi:</strong> Gajah adalah mamalia darat terbesar dengan belalai panjang.</p>
+        <p><strong>Fakta menarik:</strong> Gajah bisa mengenali diri mereka di cermin 🪞</p>
       </div>
     </div>
     <!-- Harimau -->
-    <div class="card" onclick="toggleOverlay(this)">
+    <div class="card" onclick="toggleCard(this)">
       <img src="https://github.com/gluhp28/foto-hewan/raw/main/harimau.jpg" alt="Harimau">
       <h3>Harimau</h3>
-      <div class="overlay">
-        <h4>Harimau</h4>
-        <p>Deskripsi: Harimau adalah kucing besar pemangsa yang berbulu oranye dengan garis hitam.</p>
-        <p>Fakta menarik: Harimau bisa berenang lebih baik dibanding kucing lainnya 🏊‍♂️</p>
+      <div class="details">
+        <p><strong>Deskripsi:</strong> Harimau adalah kucing besar pemangsa yang berbulu oranye dengan garis hitam.</p>
+        <p><strong>Fakta menarik:</strong> Harimau bisa berenang lebih baik dibanding kucing lainnya 🏊‍♂️</p>
       </div>
     </div>
     <!-- Jerapah -->
-    <div class="card" onclick="toggleOverlay(this)">
+    <div class="card" onclick="toggleCard(this)">
       <img src="https://github.com/gluhp28/foto-hewan/raw/main/jerapah.jpg" alt="Jerapah">
       <h3>Jerapah</h3>
-      <div class="overlay">
-        <h4>Jerapah</h4>
-        <p>Deskripsi: Jerapah memiliki leher terpanjang di dunia dan tinggal di savana Afrika.</p>
-        <p>Fakta menarik: Lidah jerapah bisa mencapai 45 cm dan berwarna ungu 😋</p>
+      <div class="details">
+        <p><strong>Deskripsi:</strong> Jerapah memiliki leher terpanjang di dunia dan tinggal di savana Afrika.</p>
+        <p><strong>Fakta menarik:</strong> Lidah jerapah bisa mencapai 45 cm dan berwarna ungu 😋</p>
       </div>
     </div>
   </div>
 </div>
 
 <script>
-function toggleOverlay(card){
-  card.classList.toggle("show");
+function toggleCard(card){
+  // Tutup kartu lain yang terbuka
+  document.querySelectorAll('.card').forEach(c => {
+    if(c !== card){ c.classList.remove('expanded'); }
+  });
+  // Toggle kartu yang diklik
+  card.classList.toggle('expanded');
 }
 </script>
 </body>
