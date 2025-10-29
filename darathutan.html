@@ -66,6 +66,64 @@ nav a:hover {
   color: white;
   transform: scale(1.1);
 }
+  /* --- Container grid untuk kategori hewan --- */
+.container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 kolom di desktop */
+  gap: 20px; /* jarak antar boks */
+  max-width: 900px;
+  margin: 20px auto; /* tengah horizontal */
+  padding: 10px;
+}
+
+/* Boks hewan/foto */
+.hewan {
+  background-color: rgba(255,255,255,0.9);
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.hewan:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 12px rgba(0,0,0,0.2);
+}
+
+.hewan img {
+  width: 100%;
+  border-radius: 10px;
+  height: auto;
+}
+
+.hewan h3 {
+  margin: 10px 0 5px 0;
+  color: #2e8b57;
+  font-size: 18px;
+}
+
+/* --- Responsif tablet --- */
+@media (max-width: 900px) {
+  .container {
+    grid-template-columns: 1fr; /* 1 kolom untuk layar sedang */
+  }
+}
+
+/* --- Responsif HP --- */
+@media (max-width: 600px) {
+  .container {
+    grid-template-columns: 1fr; /* tetap 1 kolom di HP */
+    padding: 5px;
+    gap: 15px;
+  }
+  .hewan {
+    padding: 10px;
+  }
+  .hewan h3 {
+    font-size: 16px;
+  }
+}
   </style>
 
 <div class="container">
