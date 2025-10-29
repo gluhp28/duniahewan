@@ -1,63 +1,42 @@
-/* --- Style Header & Nav Bubble --- */
+/* --- Header & Nav (ikut scroll, tidak mengecil) --- */
 header {
   text-align: center;
   padding: 20px 10px;
-  background: linear-gradient(90deg, #d0e8c6, #fdf6e3); /* soft alam hijau → krem */
-  position: sticky;
-  top: 0;
+  background: linear-gradient(90deg, #d0e8c6, #fdf6e3);
+  /* tidak sticky */
   z-index: 1000;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  transition: padding 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 header nav a {
   display: inline-block;
-  background: #ffffff; /* bubble putih */
-  color: #556b2f; /* olive green */
-  padding: 15px 18px;
+  background: #ffffff;
+  color: #556b2f;
+  padding: 10px 18px;
   margin: 6px 10px;
   border-radius: 50px;
   font-weight: 600;
   text-decoration: none;
   transition: all 0.3s ease;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 header nav a:hover {
-  background: #cce5b1; /* hijau lembut saat hover */
-  color: #2e4a1f; /* hijau tua */
+  background: #cce5b1;
+  color: #2e4a1f;
   transform: scale(1.1);
   box-shadow: 0 4px 8px rgba(0,0,0,0.15);
 }
 
-header nav a:active { transform: scale(0.95); }
-
-/* --- Shrink header saat scroll --- */
-header.shrink {
-  padding: 8px 10px; /* header lebih kecil */
-}
-
-header.shrink nav a {
-  padding: 6px 12px;   /* link lebih kecil, tetap inline */
-  font-size: 12px;     /* teks lebih kecil */
-}
-
-/* Responsif HP untuk scroll, tetap inline */
-@media screen and (max-width: 600px) {
+/* --- Responsive untuk HP --- */
+@media (max-width: 600px) {
+  header {
+    padding: 15px 10px;
+  }
   header nav a {
-    display: inline-block; /* tetap inline, tidak satu baris */
-    padding: 8px 10px;     /* lebih kecil dari normal */
-    font-size: 12px;       /* teks lebih kecil */
-    margin: 4px 6px;       /* jarak antar link */
-  }
-
-  header.shrink nav a {
-    padding: 5px 8px;      /* lebih kecil saat scroll */
-    font-size: 11px;
-  }
-
-  .container {
-    margin-top: 60px;      /* mencegah konten tertutup header */
+    padding: 8px 14px;
+    font-size: 14px;
+    margin: 4px 6px;
   }
 }
 
