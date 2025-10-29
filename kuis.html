@@ -7,20 +7,21 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 <style>
 body { font-family: 'Poppins', sans-serif; margin:0; background: linear-gradient(to bottom, #d0f0c0, #a3d9a5); color:#333; }
-header { text-align:center; padding:1em; background: rgba(34,139,34,0.8); color:white; position: sticky; top:0; z-index:1000; }
-nav a { margin:0 10px; color:white; text-decoration:none; font-weight:600; padding:8px 12px; border-radius:5px; transition:background 0.3s;}
-nav a:hover { background-color: rgba(255,255,255,0.3);}
+header { text-align:center; padding:1em; background: linear-gradient(90deg, #d0e8c6, #fdf6e3); color:#2e8b57; position: sticky; top:0; z-index:1000; }
+nav a { margin:0 10px; color:#2e8b57; text-decoration:none; font-weight:600; padding:8px 12px; border-radius:50px; background:#fff; transition:background 0.3s;}
+nav a:hover { background-color: #cce5b1;}
 .container { max-width:900px; margin:20px auto; padding:20px; text-align:center; }
-.category-buttons button { display:block; width:90%; max-width:400px; margin:10px auto; padding:15px; border:none; border-radius:50px; background:#2e8b57; color:white; font-weight:600; cursor:pointer; transition: transform 0.2s, background 0.2s; }
-.category-buttons button:hover { background:#246b45; transform:scale(1.05); }
+.category-buttons button { display:block; width:90%; max-width:400px; margin:10px auto; padding:15px; border:none; border-radius:50px; background:#fff; color:#2e8b57; font-weight:600; cursor:pointer; transition: transform 0.2s, background 0.2s; box-shadow:0 2px 4px rgba(0,0,0,0.1);}
+.category-buttons button:hover { transform:scale(1.05); background:#f0f0f0;}
 .question-box { background: rgba(255,255,255,0.9); padding:20px; border-radius:15px; margin-bottom:20px; box-shadow:0 4px 8px rgba(0,0,0,0.1); text-align:left; }
 .question-box h3 { color:#2e8b57; }
-.question-box button { display:block; width:100%; margin:10px 0; padding:10px; font-size:16px; border:none; border-radius:8px; background:#2e8b57; color:white; cursor:pointer; transition: background 0.3s;}
-.question-box button:hover { background:#246b45; }
+.question-box button { display:block; width:100%; margin:10px 0; padding:10px; font-size:16px; border:none; border-radius:8px; background:#fff; color:#2e8b57; cursor:pointer; transition: background 0.3s, color 0.3s; box-shadow:0 2px 4px rgba(0,0,0,0.1);}
+.question-box button:hover { background:#f0f0f0;}
 .feedback { margin-top:10px; font-weight:bold; }
-.explanation { margin-top:10px; font-style:italic; color:#555; }
-.next-btn { display:none; padding:10px 20px; margin-top:10px; background:#ff8c00; color:white; border:none; border-radius:50px; font-weight:600; cursor:pointer; }
-.next-btn:hover { background:#e07b00; }
+#next-btn { display:none; padding:12px 25px; background:#2e8b57; color:white; border:none; border-radius:50px; font-weight:600; cursor:pointer; margin-top:10px; }
+#next-btn:hover { background:#246b45; transform:scale(1.05); }
+#retry-btn { display:none; padding:12px 25px; background:#2e8b57; color:white; border:none; border-radius:50px; font-weight:600; cursor:pointer; margin-top:20px; }
+#retry-btn:hover { background:#246b45; transform:scale(1.05); }
 .end-msg { text-align:center; font-size:18px; color:#ff6600; margin-top:20px; font-weight:600;}
 </style>
 </head>
@@ -49,7 +50,7 @@ nav a:hover { background-color: rgba(255,255,255,0.3);}
   </div>
 
   <div id="quiz-area"></div>
-  <button id="next-btn" class="next-btn" onclick="nextQuestion()">Soal Berikutnya</button>
+  <button id="next-btn" onclick="nextQuestion()">Next</button>
   <div id="end-msg" class="end-msg"></div>
   <button id="retry-btn" onclick="retryQuiz()">Pilih Kategori Lain</button>
 </div>
@@ -57,91 +58,111 @@ nav a:hover { background-color: rgba(255,255,255,0.3);}
 <script>
 const quizzes = {
   darat: [
-    {q:"Singa adalah hewan...", a:["Karnivora","Herbivora","Omnivora"], correct:0, explanation:"Singa memakan daging, sehingga termasuk karnivora."},
-    {q:"Gajah memiliki belalai untuk...", a:["Makan","Menghirup udara & minum","Melompat"], correct:1, explanation:"Belalai gajah digunakan untuk menghirup udara, minum, dan mengambil makanan."},
-    {q:"Harimau hidup di...", a:["Padang pasir","Hutan","Kutub"], correct:1, explanation:"Harimau hidup di hutan tropis dan subtropis."}
+    {q:"Singa adalah hewan...", a:["Karnivora","Herbivora","Omnivora"], correct:0, explain:"Singa memakan daging sehingga termasuk karnivora."},
+    {q:"Gajah memiliki belalai untuk...", a:["Makan","Menghirup udara & minum","Melompat"], correct:1, explain:"Belalai gajah digunakan untuk menghirup udara, minum, dan mengambil makanan."},
+    {q:"Harimau hidup di...", a:["Padang pasir","Hutan","Kutub"], correct:1, explain:"Harimau hidup di hutan tropis dan subtropis."},
+    {q:"Zebra terkenal karena...", a:["Corak garis tubuh","Ukuran tubuh","Bunyi khas"], correct:0, explain:"Corak garis tubuh zebra berfungsi sebagai kamuflase."},
+    {q:"Orangutan berasal dari...", a:["Afrika","Asia Tenggara","Amerika"], correct:1, explain:"Orangutan berasal dari Asia Tenggara, terutama Indonesia."},
   ],
   laut: [
-    {q:"Lumba-lumba termasuk...", a:["Mamalia","Ikan","Reptil"], correct:0, explanation:"Lumba-lumba adalah mamalia laut, bukan ikan."},
-    {q:"Paus biru adalah...", a:["Hewan terkecil","Hewan terbesar","Hewan tercepat"], correct:1, explanation:"Paus biru adalah hewan terbesar di dunia."}
+    {q:"Lumba-lumba termasuk...", a:["Mamalia","Ikan","Reptil"], correct:0, explain:"Lumba-lumba bernapas dengan paru-paru, sehingga mamalia."},
+    {q:"Paus biru adalah...", a:["Hewan terkecil","Hewan terbesar","Hewan tercepat"], correct:1, explain:"Paus biru adalah hewan terbesar di dunia."},
+    {q:"Kura-kura laut kembali ke pantai untuk...", a:["Tidur","Bertelur","Berenang"], correct:1, explain:"Kura-kura bertelur di pantai."},
+    {q:"Ikan badut hidup di...", a:["Air tawar","Anemon laut","Sungai"], correct:1, explain:"Ikan badut hidup di anemon laut."},
+    {q:"Anjing laut terkenal karena...", a:["Bisa terbang","Lincah di air","Menyanyi"], correct:1, explain:"Anjing laut lincah berenang di air."},
   ],
   udara: [
-    {q:"Elang termasuk...", a:["Burung pemangsa","Burung merpati","Burung hantu"], correct:0, explanation:"Elang adalah burung pemangsa."},
-    {q:"Burung hantu aktif saat...", a:["Siang","Malam","Mendung"], correct:1, explanation:"Burung hantu adalah hewan nokturnal, aktif malam hari."}
+    {q:"Elang termasuk...", a:["Burung pemangsa","Burung merpati","Burung hantu"], correct:0, explain:"Elang memangsa hewan lain, termasuk burung pemangsa."},
+    {q:"Burung hantu aktif saat...", a:["Siang","Malam","Mendung"], correct:1, explain:"Burung hantu adalah hewan nokturnal, aktif malam hari."},
+    {q:"Burung cendrawasih terkenal karena...", a:["Suara merdu","Bulu indah","Badan besar"], correct:1, explain:"Bulu indah digunakan untuk menarik pasangan."},
+    {q:"Merpati sering digunakan untuk...", a:["Olahraga","Pengiriman pesan","Hiburan"], correct:1, explain:"Merpati sering digunakan untuk mengirim pesan karena bisa kembali ke rumah."},
+    {q:"Burung yang bisa meniru suara manusia...", a:["Kakatua","Elang","Gagak"], correct:0, explain:"Beberapa kakatua dapat meniru suara manusia."},
   ],
   hutantropis: [
-    {q:"Orangutan termasuk...", a:["Primata","Kucing","Reptil"], correct:0, explanation:"Orangutan adalah primata."},
-    {q:"Hewan yang terkenal memanjat pohon...", a:["Gajah","Kucing","Orangutan"], correct:2, explanation:"Orangutan sangat mahir memanjat pohon."}
+    {q:"Hewan hutan tropis biasanya...", a:["Hidup di salju","Hidup di hutan","Hidup di gurun"], correct:1, explain:"Hewan hutan tropis hidup di hutan."},
+    {q:"Orangutan termasuk...", a:["Primata","Kucing","Reptil"], correct:0, explain:"Orangutan adalah primata."},
+    {q:"Hewan yang terkenal memanjat pohon...", a:["Gajah","Kucing","Orangutan"], correct:2, explain:"Orangutan pandai memanjat pohon."},
+    {q:"Hewan nokturnal artinya...", a:["Aktif siang","Aktif malam","Tidak aktif"], correct:1, explain:"Hewan nokturnal aktif pada malam hari."},
+    {q:"Kupu-kupu termasuk...", a:["Serangga","Burung","Mamalia"], correct:0, explain:"Kupu-kupu adalah serangga."},
   ],
   kutub: [
-    {q:"Penguin hidup di...", a:["Kutub Utara","Kutub Selatan","Hutan tropis"], correct:1, explanation:"Penguin hidup di Kutub Selatan."},
-    {q:"Beruang kutub memiliki bulu...", a:["Tipis","Tebal","Transparan"], correct:1, explanation:"Beruang kutub memiliki bulu tebal untuk melindungi dari dingin."}
+    {q:"Penguin hidup di...", a:["Kutub Utara","Kutub Selatan","Hutan tropis"], correct:1, explain:"Penguin hidup di Kutub Selatan."},
+    {q:"Beruang kutub memiliki bulu...", a:["Tipis","Tebal","Transparan"], correct:1, explain:"Bulu tebal membantu beruang kutub bertahan di dingin."},
+    {q:"Hewan laut di kutub yang besar...", a:["Lumba-lumba","Paus biru","Anjing laut"], correct:2, explain:"Anjing laut hidup di laut kutub."},
+    {q:"Hewan yang suka berseluncur di es...", a:["Penguin","Singa","Harimau"], correct:0, explain:"Penguin sering berseluncur di es."},
+    {q:"Hewan yang berburu di salju...", a:["Singa","Beruang kutub","Zebra"], correct:1, explain:"Beruang kutub berburu di salju."},
   ]
 };
 
 let currentQuiz = [];
 let currentIndex = 0;
-let scoreCorrect = 0;
-let scoreWrong = 0;
+let score = 0;
 
 function startQuiz(category){
   currentQuiz = quizzes[category];
   currentIndex = 0;
-  scoreCorrect = 0;
-  scoreWrong = 0;
-  document.getElementById('categoryButtons').style.display='none';
-  document.getElementById('end-msg').innerText='';
-  document.getElementById('retry-btn').style.display='none';
+  score = 0;
+  document.getElementById('end-msg').innerHTML = '';
+  document.getElementById('categoryButtons').style.display = 'none';
+  document.getElementById('retry-btn').style.display = 'none';
+  document.getElementById('next-btn').style.display = 'none';
   showQuestion();
 }
 
 function showQuestion(){
-  if(currentIndex >= currentQuiz.length){
-    document.getElementById('quiz-area').innerHTML='';
-    document.getElementById('next-btn').style.display='none';
-    document.getElementById('end-msg').innerText = `Yeay, kamu udah selesai kuis! 🎉\nBenar: ${scoreCorrect} | Salah: ${scoreWrong}`;
-    document.getElementById('retry-btn').style.display='block';
-    return;
-  }
   const q = currentQuiz[currentIndex];
   const html = `<div class="question-box">
-    <h3>${q.q}</h3>
-    ${q.a.map((ans,i)=>`<button onclick="checkAnswer(${i})">${ans}</button>`).join('')}
+    <h3>Soal ${currentIndex+1}: ${q.q}</h3>
+    ${q.a.map((ans,i)=>`<button onclick="checkAnswer(this, ${i})">${ans}</button>`).join('')}
     <div class="feedback" id="feedback"></div>
     <div class="explanation" id="explanation"></div>
   </div>`;
   document.getElementById('quiz-area').innerHTML = html;
-  document.getElementById('next-btn').style.display='none';
 }
 
-function checkAnswer(selected){
+function checkAnswer(btn, index){
   const q = currentQuiz[currentIndex];
+  const feedback = document.getElementById('feedback');
+  const explanation = document.getElementById('explanation');
   const buttons = document.querySelectorAll('.question-box button');
-  buttons.forEach((btn,i)=>{
-    btn.disabled = true;
-    if(i===q.correct) btn.style.backgroundColor='green';
-    if(i===selected && i!==q.correct) btn.style.backgroundColor='red';
-  });
-
-  const explanationDiv = document.getElementById('explanation');
-  explanationDiv.innerText = q.explanation;
-
-  if(selected === q.correct) scoreCorrect++;
-  else scoreWrong++;
-
-  document.getElementById('next-btn').style.display='block';
+  
+  buttons.forEach(b => b.disabled = true);
+  
+  if(index === q.correct){
+    btn.style.background = 'green';
+    btn.style.color = 'white';
+    feedback.innerText = 'Jawaban benar! 👍';
+    score++;
+  } else {
+    btn.style.background = 'red';
+    btn.style.color = 'white';
+    buttons[q.correct].style.background = 'green';
+    buttons[q.correct].style.color = 'white';
+    feedback.innerText = 'Jawaban salah!';
+  }
+  
+  explanation.innerText = q.explain;
+  document.getElementById('next-btn').style.display = 'block';
 }
 
 function nextQuestion(){
   currentIndex++;
-  showQuestion();
+  if(currentIndex >= currentQuiz.length){
+    document.getElementById('quiz-area').innerHTML = '';
+    document.getElementById('next-btn').style.display = 'none';
+    document.getElementById('end-msg').innerText = `Kuis selesai! Benar: ${score}, Salah: ${currentQuiz.length - score}`;
+    document.getElementById('retry-btn').style.display = 'block';
+  } else {
+    document.getElementById('next-btn').style.display = 'none';
+    showQuestion();
+  }
 }
 
 function retryQuiz(){
-  document.getElementById('categoryButtons').style.display='block';
-  document.getElementById('quiz-area').innerHTML='';
-  document.getElementById('end-msg').innerText='';
-  document.getElementById('retry-btn').style.display='none';
+  document.getElementById('quiz-area').innerHTML = '';
+  document.getElementById('end-msg').innerHTML = '';
+  document.getElementById('retry-btn').style.display = 'none';
+  document.getElementById('categoryButtons').style.display = 'block';
 }
 </script>
 </body>
