@@ -18,9 +18,10 @@ nav a:hover { background-color: rgba(255,255,255,0.3);}
 .question-box button { display:block; width:100%; margin:10px 0; padding:10px; font-size:16px; border:none; border-radius:8px; background:#2e8b57; color:white; cursor:pointer; transition: background 0.3s;}
 .question-box button:hover { background:#246b45; }
 .feedback { margin-top:10px; font-weight:bold; }
+.explanation { margin-top:10px; font-style:italic; color:#555; }
+.next-btn { display:none; padding:10px 20px; margin-top:10px; background:#ff8c00; color:white; border:none; border-radius:50px; font-weight:600; cursor:pointer; }
+.next-btn:hover { background:#e07b00; }
 .end-msg { text-align:center; font-size:18px; color:#ff6600; margin-top:20px; font-weight:600;}
-#retry-btn { display:none; padding:12px 25px; background:#2e8b57; color:white; border:none; border-radius:50px; font-weight:600; cursor:pointer; margin-top:20px; }
-#retry-btn:hover { background:#246b45; transform:scale(1.05); }
 </style>
 </head>
 <body>
@@ -35,38 +36,7 @@ nav a:hover { background-color: rgba(255,255,255,0.3);}
     <a href="/duniahewan/kutub.html">Kutub</a>
     <a href="/duniahewan/faktamenarik.html">Fakta Menarik</a>
     <a href="/duniahewan/kuis.html">Kuis</a>
-  </nav>
-</header>
-
-<style>
-header {
-  text-align: center;
-  padding: 20px 10px;
-  background: linear-gradient(90deg, #d0e8c6, #fdf6e3); /* soft alam hijau → krem */
-  position: relative;
-  z-index: 1000;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-}
-nav a {
-  display: inline-block;
-  background: #ffffff; /* bubble putih */
-  color: #556b2f; /* olive green */
-  padding: 10px 18px;
-  margin: 6px 10px;
-  border-radius: 50px; /* bulat */
-  font-weight: 600;
-  text-decoration: none;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-nav a:hover {
-  background: #cce5b1; /* hijau lembut saat hover */
-  color: #2e4a1f; /* hijau tua */
-  transform: scale(1.1);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-}
-nav a:active { transform: scale(0.95); }
-</style>
+</nav>
 </header>
 
 <div class="container">
@@ -79,6 +49,7 @@ nav a:active { transform: scale(0.95); }
   </div>
 
   <div id="quiz-area"></div>
+  <button id="next-btn" class="next-btn" onclick="nextQuestion()">Soal Berikutnya</button>
   <div id="end-msg" class="end-msg"></div>
   <button id="retry-btn" onclick="retryQuiz()">Pilih Kategori Lain</button>
 </div>
@@ -86,59 +57,50 @@ nav a:active { transform: scale(0.95); }
 <script>
 const quizzes = {
   darat: [
-    {q:"Singa adalah hewan...", a:["Karnivora","Herbivora","Omnivora"], correct:0},
-    {q:"Gajah memiliki belalai untuk...", a:["Makan","Menghirup udara & minum","Melompat"], correct:1},
-    {q:"Harimau hidup di...", a:["Padang pasir","Hutan","Kutub"], correct:1},
-    {q:"Zebra terkenal karena...", a:["Corak garis tubuh","Ukuran tubuh","Bunyi khas"], correct:0},
-    {q:"Orangutan berasal dari...", a:["Afrika","Asia Tenggara","Amerika"], correct:1},
+    {q:"Singa adalah hewan...", a:["Karnivora","Herbivora","Omnivora"], correct:0, explanation:"Singa memakan daging, sehingga termasuk karnivora."},
+    {q:"Gajah memiliki belalai untuk...", a:["Makan","Menghirup udara & minum","Melompat"], correct:1, explanation:"Belalai gajah digunakan untuk menghirup udara, minum, dan mengambil makanan."},
+    {q:"Harimau hidup di...", a:["Padang pasir","Hutan","Kutub"], correct:1, explanation:"Harimau hidup di hutan tropis dan subtropis."}
   ],
   laut: [
-    {q:"Lumba-lumba termasuk...", a:["Mamalia","Ikan","Reptil"], correct:0},
-    {q:"Paus biru adalah...", a:["Hewan terkecil","Hewan terbesar","Hewan tercepat"], correct:1},
-    {q:"Kura-kura laut kembali ke pantai untuk...", a:["Tidur","Bertelur","Berenang"], correct:1},
-    {q:"Ikan badut hidup di...", a:["Air tawar","Anemon laut","Sungai"], correct:1},
-    {q:"Anjing laut terkenal karena...", a:["Bisa terbang","Lincah di air","Menyanyi"], correct:1},
+    {q:"Lumba-lumba termasuk...", a:["Mamalia","Ikan","Reptil"], correct:0, explanation:"Lumba-lumba adalah mamalia laut, bukan ikan."},
+    {q:"Paus biru adalah...", a:["Hewan terkecil","Hewan terbesar","Hewan tercepat"], correct:1, explanation:"Paus biru adalah hewan terbesar di dunia."}
   ],
   udara: [
-    {q:"Elang termasuk...", a:["Burung pemangsa","Burung merpati","Burung hantu"], correct:0},
-    {q:"Burung hantu aktif saat...", a:["Siang","Malam","Mendung"], correct:1},
-    {q:"Burung cendrawasih terkenal karena...", a:["Suara merdu","Bulu indah","Badan besar"], correct:1},
-    {q:"Merpati sering digunakan untuk...", a:["Olahraga","Pengiriman pesan","Hiburan"], correct:1},
-    {q:"Burung yang bisa meniru suara manusia...", a:["Kakatua","Elang","Gagak"], correct:0},
+    {q:"Elang termasuk...", a:["Burung pemangsa","Burung merpati","Burung hantu"], correct:0, explanation:"Elang adalah burung pemangsa."},
+    {q:"Burung hantu aktif saat...", a:["Siang","Malam","Mendung"], correct:1, explanation:"Burung hantu adalah hewan nokturnal, aktif malam hari."}
   ],
   hutantropis: [
-    {q:"Hewan hutan tropis biasanya...", a:["Hidup di salju","Hidup di hutan","Hidup di gurun"], correct:1},
-    {q:"Orangutan termasuk...", a:["Primata","Kucing","Reptil"], correct:0},
-    {q:"Hewan yang terkenal memanjat pohon...", a:["Gajah","Kucing","Orangutan"], correct:2},
-    {q:"Hewan nokturnal artinya...", a:["Aktif siang","Aktif malam","Tidak aktif"], correct:1},
-    {q:"Kupu-kupu termasuk...", a:["Serangga","Burung","Mamalia"], correct:0},
+    {q:"Orangutan termasuk...", a:["Primata","Kucing","Reptil"], correct:0, explanation:"Orangutan adalah primata."},
+    {q:"Hewan yang terkenal memanjat pohon...", a:["Gajah","Kucing","Orangutan"], correct:2, explanation:"Orangutan sangat mahir memanjat pohon."}
   ],
   kutub: [
-    {q:"Penguin hidup di...", a:["Kutub Utara","Kutub Selatan","Hutan tropis"], correct:1},
-    {q:"Beruang kutub memiliki bulu...", a:["Tipis","Tebal","Transparan"], correct:1},
-    {q:"Hewan laut di kutub yang besar...", a:["Lumba-lumba","Paus biru","Anjing laut"], correct:2},
-    {q:"Hewan yang suka berseluncur di es...", a:["Penguin","Singa","Harimau"], correct:0},
-    {q:"Hewan yang berburu di salju...", a:["Singa","Beruang kutub","Zebra"], correct:1},
+    {q:"Penguin hidup di...", a:["Kutub Utara","Kutub Selatan","Hutan tropis"], correct:1, explanation:"Penguin hidup di Kutub Selatan."},
+    {q:"Beruang kutub memiliki bulu...", a:["Tipis","Tebal","Transparan"], correct:1, explanation:"Beruang kutub memiliki bulu tebal untuk melindungi dari dingin."}
   ]
 };
 
 let currentQuiz = [];
 let currentIndex = 0;
+let scoreCorrect = 0;
+let scoreWrong = 0;
 
 function startQuiz(category){
   currentQuiz = quizzes[category];
   currentIndex = 0;
-  document.getElementById('end-msg').innerHTML = '';
-  document.getElementById('categoryButtons').style.display = 'none';
-  document.getElementById('retry-btn').style.display = 'none';
+  scoreCorrect = 0;
+  scoreWrong = 0;
+  document.getElementById('categoryButtons').style.display='none';
+  document.getElementById('end-msg').innerText='';
+  document.getElementById('retry-btn').style.display='none';
   showQuestion();
 }
 
 function showQuestion(){
   if(currentIndex >= currentQuiz.length){
-    document.getElementById('quiz-area').innerHTML = '';
-    document.getElementById('end-msg').innerText = "Yeay, kamu udah selesai kuis! Kamu keren banget 😎🎉";
-    document.getElementById('retry-btn').style.display = 'block';
+    document.getElementById('quiz-area').innerHTML='';
+    document.getElementById('next-btn').style.display='none';
+    document.getElementById('end-msg').innerText = `Yeay, kamu udah selesai kuis! 🎉\nBenar: ${scoreCorrect} | Salah: ${scoreWrong}`;
+    document.getElementById('retry-btn').style.display='block';
     return;
   }
   const q = currentQuiz[currentIndex];
@@ -146,29 +108,40 @@ function showQuestion(){
     <h3>${q.q}</h3>
     ${q.a.map((ans,i)=>`<button onclick="checkAnswer(${i})">${ans}</button>`).join('')}
     <div class="feedback" id="feedback"></div>
+    <div class="explanation" id="explanation"></div>
   </div>`;
   document.getElementById('quiz-area').innerHTML = html;
+  document.getElementById('next-btn').style.display='none';
 }
 
-function checkAnswer(index){
+function checkAnswer(selected){
   const q = currentQuiz[currentIndex];
-  const feedback = document.getElementById('feedback');
-  if(index === q.correct){
-    feedback.innerText = "Jawaban benar! 👍";
-    feedback.style.color = "green";
-  } else {
-    feedback.innerText = `Salah! Jawaban yang benar: ${q.a[q.correct]}`;
-    feedback.style.color = "red";
-  }
+  const buttons = document.querySelectorAll('.question-box button');
+  buttons.forEach((btn,i)=>{
+    btn.disabled = true;
+    if(i===q.correct) btn.style.backgroundColor='green';
+    if(i===selected && i!==q.correct) btn.style.backgroundColor='red';
+  });
+
+  const explanationDiv = document.getElementById('explanation');
+  explanationDiv.innerText = q.explanation;
+
+  if(selected === q.correct) scoreCorrect++;
+  else scoreWrong++;
+
+  document.getElementById('next-btn').style.display='block';
+}
+
+function nextQuestion(){
   currentIndex++;
-  setTimeout(showQuestion, 1500);
+  showQuestion();
 }
 
 function retryQuiz(){
-  document.getElementById('quiz-area').innerHTML = '';
-  document.getElementById('end-msg').innerHTML = '';
-  document.getElementById('retry-btn').style.display = 'none';
-  document.getElementById('categoryButtons').style.display = 'block';
+  document.getElementById('categoryButtons').style.display='block';
+  document.getElementById('quiz-area').innerHTML='';
+  document.getElementById('end-msg').innerText='';
+  document.getElementById('retry-btn').style.display='none';
 }
 </script>
 </body>
