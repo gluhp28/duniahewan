@@ -27,6 +27,25 @@ header nav a:hover {
   transform: scale(1.1);
   box-shadow: 0 4px 8px rgba(0,0,0,0.15);
 }
+/* --- Navbar bisa digeser ke samping (tanpa scrollbar terlihat) --- */
+header nav {
+  display: flex;
+  overflow-x: auto;       /* bisa digeser ke samping */
+  white-space: nowrap;    /* biar gak turun ke bawah */
+  justify-content: center;
+  gap: 10px;
+  padding-bottom: 5px;
+  scrollbar-width: none;  /* hilangin scrollbar di Firefox */
+  -webkit-overflow-scrolling: touch; /* biar scroll halus di HP */
+}
+
+header nav::-webkit-scrollbar {
+  display: none;          /* hilangin scrollbar di Chrome/Safari */
+}
+
+header nav a {
+  flex: 0 0 auto;         /* biar tiap bubble punya lebar tetap */
+}
 
 /* --- Responsive untuk HP --- */
 @media (max-width: 600px) {
