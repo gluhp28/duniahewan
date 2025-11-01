@@ -42,7 +42,10 @@ nav a:hover { background-color: rgba(255,255,255,0.3);}
 header {
   text-align: center;
   padding: 20px 10px;
-  background: url('https://github.com/gluhp28/foto-hewan/raw/main/judul%20udara.jpg') center/cover no-repeat;
+  background-image: url('https://github.com/gluhp28/foto-hewan/raw/main/judul%20udara.jpg'); /* pastikan URL langsung ke file gambar */
+  background-size: cover;      /* biar memenuhi header */
+  background-position: center; /* biar tengah */
+  background-repeat: no-repeat;/* supaya tidak mengulang */
   position: relative;
   z-index: 1000;
   box-shadow: 0 4px 8px rgba(0,0,0,0.2);
