@@ -29,6 +29,8 @@ header nav a:hover {
 }
 /* --- Navbar bisa digeser ke samping (tanpa scrollbar terlihat) --- */
 header nav {
+  width: 100%;
+box-sizing: border-box;
   display: flex;
   overflow-x: auto;       /* bisa digeser ke samping */
   white-space: nowrap;    /* biar gak turun ke bawah */
